@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<!-- NAVBAR -->
+  <nav>
+    <div class="nav-brand">☕ BrewHouse</div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="menu_index.html">Menu</a></li>
+      <li><a href="#">Pesanan</a></li>
+    </ul>
+    <div class="nav-user">
+      <span>👤 Admin</span>
+      <button class="btn-logout">Logout</button>
+    </div>
+  </nav>
+ 
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>Edit Menu</h1>
+    <p>Perbarui informasi menu yang sudah ada</p>
+  </div>
+ 
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="menu_index.html">Menu</a>
+    <span>›</span>
+    <span>Edit Menu</span>
+  </div>
+ 
+  <!-- MAIN -->
+  <div class="main">
+ 
+    <!-- WARNING -->
+    <div class="edit-banner">
+      ⚠️ Kamu sedang mengedit data menu. Perubahan akan langsung tersimpan ke database.
+    </div>
+ 
+    <div class="form-card">
+ 
+      <div class="form-card-header">
+        <span>✏️</span>
+        <h2>Form Edit Menu</h2>
+      </div>
+ 
+      <!-- META -->
+      <div class="meta-info">
+        <span>🆔 ID Menu: <strong>3</strong></span>
+        <span>📅 Dibuat: <strong>01 Mei 2025</strong></span>
+        <span>🔄 Terakhir diubah: <strong>05 Mei 2025</strong></span>
+      </div>
+ 
+      <div class="form-body">
+        <div class="form-row">
+          <!-- Nama Menu — prefilled -->
+          <div class="form-group">
+            <label>Nama Menu <span class="required">*</span></label>
+            <input type="text" id="nama_menu" value="Croissant Butter"/>
+            <span class="error-msg" id="err-nama">Nama menu wajib diisi!</span>
+          </div>
+ 
+          <!-- Kategori — prefilled -->
+          <div class="form-group">
+            <label>Kategori <span class="required">*</span></label>
+            <select id="kategori">
+              <option value="">-- Pilih Kategori --</option>
+              <option value="1">Minuman</option>
+              <option value="2" selected>Makanan</option>
+              <option value="3">Snack</option>
+            </select>
+            <span class="error-msg" id="err-kategori">Kategori wajib dipilih!</span>
+          </div>
+        </div>
+ 
+        <div class="form-row">
+          <!-- Harga — prefilled -->
+          <div class="form-group">
+            <label>Harga <span class="required">*</span></label>
+            <div class="input-group">
+              <span class="input-prefix">Rp</span>
+              <input type="number" id="harga" value="22000" min="0"/>
+            </div>
+            <span class="error-msg" id="err-harga">Harga wajib diisi!</span>
+          </div>
+ 
+          <!-- Stok — prefilled -->
+          <div class="form-group">
+            <label>Stok <span class="required">*</span></label>
+            <input type="number" id="stok" value="3" min="0"/>
+            <p class="stok-helper">⚠ Stok saat ini rendah (≤ 5)</p>
+          </div>
+        </div>
+ 
+        <!-- Deskripsi — prefilled -->
+        <div class="form-group">
+          <label>Deskripsi</label>
+          <textarea id="deskripsi">Croissant mentega premium, renyah di luar lembut di dalam.</textarea>
+        </div>
+ 
+        <hr class="divider"/>
+ 
+        <!-- Gambar saat ini -->
+        <div class="form-group">
+          <label>Foto Menu</label>
+          <p style="font-size:0.82rem; color:var(--muted); margin-bottom:0.5rem">📷 Foto saat ini: <em>croissant.jpg</em></p>
+          <div class="image-upload-area" onclick="document.getElementById('foto').click()" style="border: 2px dashed #d0b89a; border-radius:10px; padding:1.2rem; text-align:center; cursor:pointer; color:var(--muted); font-size:0.85rem;">
+            Klik untuk ganti foto
+          </div>
+          <input type="file" id="foto" accept="image/*" style="display:none" onchange="previewImg(this)"/>
+          <img id="preview" src="" alt="" style="display:none; margin-top:0.75rem; max-height:160px; border-radius:8px; object-fit:cover;"/>
+        </div>
+ 
+      </div><!-- /form-body -->
+ 
+      <!-- FOOTER -->
+      <div class="form-footer">
+        <div class="footer-left">
+          🔒 Perubahan akan disimpan ke database
+        </div>
+        <div class="footer-right">
+          <a href="menu_index.html" class="btn-cancel">Batal</a>
+          <button class="btn-submit" onclick="submitForm()">💾 Simpan Perubahan</button>
+        </div>
+      </div>
+ 
+    </div><!-- /form-card -->
+  </div><!-- /main -->
+ 
+  <div class="toast" id="toast">✅ Menu berhasil diperbarui!</div>
+ 
+  <script>
+    function previewImg(input) {
+      const preview = document.getElementById('preview');
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = e => { preview.src = e.target.result; preview.style.display = 'block'; };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+ 
+    function submitForm() {
+      let valid = true;
+      const nama  = document.getElementById('nama_menu');
+      const kat   = document.getElementById('kategori');
+      const harga = document.getElementById('harga');
+ 
+      [nama, kat, harga].forEach(el => el.classList.remove('error'));
+      document.querySelectorAll('.error-msg').forEach(el => el.classList.remove('show'));
+ 
+      if (!nama.value.trim()) { nama.classList.add('error'); document.getElementById('err-nama').classList.add('show'); valid = false; }
+      if (!kat.value) { kat.classList.add('error'); document.getElementById('err-kategori').classList.add('show'); valid = false; }
+      if (!harga.value || harga.value <= 0) { harga.classList.add('error'); document.getElementById('err-harga').classList.add('show'); valid = false; }
+ 
+      if (valid) {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => { toast.classList.remove('show'); }, 2000);
+      }
+    }
+  </script>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>

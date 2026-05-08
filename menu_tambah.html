@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<!-- NAVBAR -->
+  <nav>
+    <div class="nav-brand">☕ BrewHouse</div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="menu_index.html">Menu</a></li>
+      <li><a href="#">Pesanan</a></li>
+    </ul>
+    <div class="nav-user">
+      <span>👤 Admin</span>
+      <button class="btn-logout">Logout</button>
+    </div>
+  </nav>
+ 
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>Tambah Menu Baru</h1>
+    <p>Isi form di bawah untuk menambahkan menu ke daftar</p>
+  </div>
+ 
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="menu_index.html">Menu</a>
+    <span>›</span>
+    <span>Tambah Menu</span>
+  </div>
+ 
+  <!-- MAIN -->
+  <div class="main">
+    <div class="form-card">
+ 
+      <div class="form-card-header">
+        <span>📋</span>
+        <h2>Form Tambah Menu</h2>
+      </div>
+ 
+      <div class="form-body">
+        <div class="form-row">
+          <!-- Nama Menu -->
+          <div class="form-group">
+            <label>Nama Menu <span class="required">*</span></label>
+            <input type="text" id="nama_menu" placeholder="contoh: Cappuccino"/>
+            <span class="error-msg" id="err-nama">Nama menu wajib diisi!</span>
+          </div>
+ 
+          <!-- Kategori -->
+          <div class="form-group">
+            <label>Kategori <span class="required">*</span></label>
+            <select id="kategori">
+              <option value="">-- Pilih Kategori --</option>
+              <option value="1">Minuman</option>
+              <option value="2">Makanan</option>
+              <option value="3">Snack</option>
+            </select>
+            <span class="error-msg" id="err-kategori">Kategori wajib dipilih!</span>
+          </div>
+        </div>
+ 
+        <div class="form-row">
+          <!-- Harga -->
+          <div class="form-group">
+            <label>Harga <span class="required">*</span></label>
+            <div class="input-group">
+              <span class="input-prefix">Rp</span>
+              <input type="number" id="harga" placeholder="25000" min="0"/>
+            </div>
+            <span class="error-msg" id="err-harga">Harga wajib diisi!</span>
+          </div>
+ 
+          <!-- Stok -->
+          <div class="form-group">
+            <label>Stok Awal <span class="required">*</span></label>
+            <input type="number" id="stok" placeholder="0" min="0"/>
+            <p class="stok-helper">⚠ Stok ≤ 5 akan ditandai sebagai hampir habis</p>
+          </div>
+        </div>
+ 
+        <!-- Deskripsi -->
+        <div class="form-group">
+          <label>Deskripsi</label>
+          <textarea id="deskripsi" placeholder="Tulis deskripsi singkat menu ini..."></textarea>
+        </div>
+ 
+        <hr class="divider"/>
+ 
+        <!-- Upload Gambar (static preview) -->
+        <div class="form-group">
+          <label>Foto Menu <small style="font-weight:300; color:var(--muted)">(opsional)</small></label>
+          <div class="image-upload-area" onclick="document.getElementById('foto').click()">
+            <div class="upload-icon">📷</div>
+            <p>Klik untuk upload foto menu</p>
+            <small>PNG, JPG maks. 2MB</small>
+          </div>
+          <input type="file" id="foto" accept="image/*" style="display:none" onchange="previewImg(this)"/>
+          <img id="preview" src="" alt="" style="display:none; margin-top:0.75rem; max-height:160px; border-radius:8px; object-fit:cover;"/>
+        </div>
+ 
+      </div><!-- /form-body -->
+ 
+      <!-- FOOTER -->
+      <div class="form-footer">
+        <a href="menu_index.html" class="btn-cancel">Batal</a>
+        <button class="btn-submit" onclick="submitForm()">💾 Simpan Menu</button>
+      </div>
+ 
+    </div><!-- /form-card -->
+  </div><!-- /main -->
+ 
+  <!-- TOAST -->
+  <div class="toast" id="toast">✅ Menu berhasil ditambahkan!</div>
+ 
+  <script>
+    function previewImg(input) {
+      const preview = document.getElementById('preview');
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+ 
+    function submitForm() {
+      let valid = true;
+ 
+      const nama = document.getElementById('nama_menu');
+      const kat  = document.getElementById('kategori');
+      const harga = document.getElementById('harga');
+      const stok  = document.getElementById('stok');
+ 
+      // Reset errors
+      ['nama_menu','kategori','harga'].forEach(id => {
+        document.getElementById(id).classList.remove('error');
+      });
+      document.querySelectorAll('.error-msg').forEach(el => el.classList.remove('show'));
+ 
+      // Validasi
+      if (!nama.value.trim()) {
+        nama.classList.add('error');
+        document.getElementById('err-nama').classList.add('show');
+        valid = false;
+      }
+      if (!kat.value) {
+        kat.classList.add('error');
+        document.getElementById('err-kategori').classList.add('show');
+        valid = false;
+      }
+      if (!harga.value || harga.value <= 0) {
+        harga.classList.add('error');
+        document.getElementById('err-harga').classList.add('show');
+        valid = false;
+      }
+ 
+      if (valid) {
+        // Tampilkan toast sukses (nanti diganti redirect PHP)
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+          // window.location.href = 'menu_index.html';
+        }, 2000);
+      }
+    }
+  </script>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
