@@ -5,7 +5,7 @@
 // ============================================
 
 session_start();       // Mulai session
-include "koneksi.php"; // Sambungkan ke database
+include "config.php"; // Sambungkan ke database
 
 // Jika sudah login, langsung ke dashboard
 if (isset($_SESSION["user_id"])) {
