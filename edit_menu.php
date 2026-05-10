@@ -5,7 +5,7 @@
 // ============================================
 
 session_start();
-include "koneksi.php";
+include "config.php";
 
 // Proteksi: harus login dulu
 if (!isset($_SESSION["user_id"])) {
