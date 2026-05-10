@@ -89,10 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <p class="link-auth">Belum punya akun? <a href="register.php">Daftar di sini</a></p>
 
-    <!-- Info akun bawaan untuk testing -->
-    <div class="info-demo">
-        <small>Demo: username <strong>admin</strong> / password <strong>admin123</strong></small>
-    </div>
+    
 </div>
 
 </body>
