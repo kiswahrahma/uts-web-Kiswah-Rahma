@@ -1,23 +1,12 @@
 <?php
+$host     = "localhost";
+$user     = "root";
+$password = "";
+$database = "cafe";   // sesuai nama database kamu
 
+$koneksi = mysqli_connect($host, $user, $password, $database);
 
-
-//host
-
-$databaseHost = 'localhost';
-
-//Nama database
-
-$databaseName = 'cafe';
-
-//Username
-
-$databseUsername = 'root';
-
-//Password mysql
-
-$databasePassword = '';
-
-
-
-$mysqli = mysqli_connect($databaseHost, $databseUsername, $databasePassword, $databaseName);
+if (!$koneksi) {
+    die("Koneksi GAGAL: " . mysqli_connect_error());
+}
+?>
