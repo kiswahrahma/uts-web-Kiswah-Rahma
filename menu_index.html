@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cafe</title>
+</head>
+<body>
+    <!-- NAVBAR -->
+  <nav>
+    <div class="nav-brand">☕ BrewHouse</div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="menu_index.html" class="active">Menu</a></li>
+      <li><a href="#">Pesanan</a></li>
+    </ul>
+    <div class="nav-user">
+      <span>👤 Admin</span>
+      <button class="btn-logout">Logout</button>
+    </div>
+  </nav>
+ 
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>Daftar Menu</h1>
+    <p>Kelola seluruh menu cafe kamu di sini</p>
+  </div>
+ 
+  <!-- MAIN -->
+  <div class="main">
+ 
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">🍽️</div>
+        <div class="stat-info">
+          <small>Total Menu</small>
+          <strong>12</strong>
+        </div>
+      </div>
+      <div class="stat-card" style="border-color:#1a56cc">
+        <div class="stat-icon">☕</div>
+        <div class="stat-info">
+          <small>Minuman</small>
+          <strong>7</strong>
+        </div>
+      </div>
+      <div class="stat-card" style="border-color:#2e7d32">
+        <div class="stat-icon">🍞</div>
+        <div class="stat-info">
+          <small>Makanan</small>
+          <strong>4</strong>
+        </div>
+      </div>
+      <div class="stat-card" style="border-color:#b85c00">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-info">
+          <small>Stok Habis</small>
+          <strong>1</strong>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <div class="search-wrap">
+        <input type="text" placeholder="Cari nama menu..."/>
+      </div>
+      <select class="filter-select">
+        <option value="">Semua Kategori</option>
+        <option>Minuman</option>
+        <option>Makanan</option>
+        <option>Snack</option>
+      </select>
+      <a href="menu_tambah.html" class="btn-primary">＋ Tambah Menu</a>
+    </div>
+ 
+    <!-- TABLE -->
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama Menu</th>
+            <th>Kategori</th>
+            <th>Harga</th>
+            <th>Stok</th>
+            <th>Deskripsi</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>Espresso</strong></td>
+            <td><span class="badge badge-minuman">Minuman</span></td>
+            <td class="price">Rp 18.000</td>
+            <td class="stok-ok">✔ 25</td>
+            <td>Shot espresso double ristretto</td>
+            <td>
+              <div class="action-btns">
+                <a href="menu_edit.html" class="btn-edit">✏️ Edit</a>
+                <button class="btn-delete" onclick="confirmDelete('Espresso')">🗑️ Hapus</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>Cappuccino</strong></td>
+            <td><span class="badge badge-minuman">Minuman</span></td>
+            <td class="price">Rp 28.000</td>
+            <td class="stok-ok">✔ 20</td>
+            <td>Espresso + steamed milk + foam</td>
+            <td>
+              <div class="action-btns">
+                <a href="menu_edit.html" class="btn-edit">✏️ Edit</a>
+                <button class="btn-delete" onclick="confirmDelete('Cappuccino')">🗑️ Hapus</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>Croissant Butter</strong></td>
+            <td><span class="badge badge-makanan">Makanan</span></td>
+            <td class="price">Rp 22.000</td>
+            <td class="stok-low">⚠ 3</td>
+            <td>Croissant mentega premium</td>
+            <td>
+              <div class="action-btns">
+                <a href="menu_edit.html" class="btn-edit">✏️ Edit</a>
+                <button class="btn-delete" onclick="confirmDelete('Croissant Butter')">🗑️ Hapus</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>Matcha Latte</strong></td>
+            <td><span class="badge badge-minuman">Minuman</span></td>
+            <td class="price">Rp 32.000</td>
+            <td class="stok-out">✘ 0</td>
+            <td>Matcha Jepang + susu oat</td>
+            <td>
+              <div class="action-btns">
+                <a href="menu_edit.html" class="btn-edit">✏️ Edit</a>
+                <button class="btn-delete" onclick="confirmDelete('Matcha Latte')">🗑️ Hapus</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>Cookies Choco Chip</strong></td>
+            <td><span class="badge badge-snack">Snack</span></td>
+            <td class="price">Rp 15.000</td>
+            <td class="stok-ok">✔ 30</td>
+            <td>Cookies coklat renyah</td>
+            <td>
+              <div class="action-btns">
+                <a href="menu_edit.html" class="btn-edit">✏️ Edit</a>
+                <button class="btn-delete" onclick="confirmDelete('Cookies Choco Chip')">🗑️ Hapus</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+ 
+      <!-- PAGINATION -->
+      <div class="pagination">
+        <button class="page-btn">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">›</button>
+      </div>
+    </div>
+ 
+  </div><!-- /main -->
+ 
+  <script>
+    function confirmDelete(nama) {
+      if (confirm('Yakin ingin menghapus menu "' + nama + '"?')) {
+        alert('Menu "' + nama + '" berhasil dihapus! (simulasi)');
+        // Nanti ganti dengan: window.location.href = 'delete.php?id=...'
+      }
+    }
+  </script>
+</body>
+</html>
