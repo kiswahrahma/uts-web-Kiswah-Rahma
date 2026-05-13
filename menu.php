@@ -34,14 +34,14 @@ $pesan = $_GET["pesan"] ?? "";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Menu - Cafe Kiswah</title>
+    <title>Daftar Menu - Noir Cafe</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar">
-    <div class="nav-brand">☕ Cafe Kiswah</div>
+    <div class="nav-brand">☕ Noir Cafe</div>
     <ul class="nav-menu">
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php" class="aktif">🍽️ Daftar Menu</a></li>
