@@ -1,8 +1,4 @@
 <?php
-// ============================================
-// FILE: tambah_menu.php
-// Fungsi: Form untuk menambah menu baru (CREATE)
-// ============================================
 
 session_start();
 include "config.php";

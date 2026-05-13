@@ -1,9 +1,4 @@
 <?php
-// ============================================
-// FILE: edit_menu.php
-// Fungsi: Form untuk mengubah data menu (UPDATE)
-// ============================================
-
 session_start();
 include "config.php";
 

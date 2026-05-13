@@ -1,9 +1,4 @@
 <?php
-// ============================================
-// FILE: login.php
-// Fungsi: Halaman login pengguna
-// ============================================
-
 session_start();       // Mulai session
 include "config.php"; // Sambungkan ke database
 

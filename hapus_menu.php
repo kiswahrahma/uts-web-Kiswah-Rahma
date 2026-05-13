@@ -1,8 +1,4 @@
 <?php
-// ============================================
-// FILE: hapus_menu.php
-// Fungsi: Menghapus menu dari database (DELETE)
-// ============================================
 
 session_start();
 include "koneksi.php";

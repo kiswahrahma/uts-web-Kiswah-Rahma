@@ -1,11 +1,6 @@
 <?php
-// ============================================
-// FILE: register.php
-// Fungsi: Halaman daftar akun baru
-// ============================================
-
-session_start();          // Mulai session
-include "config.php";    // Sambungkan ke database
+session_start();          
+include "config.php";    
 
 $pesan = "";  // Variabel untuk menyimpan pesan error/sukses
 

@@ -1,9 +1,4 @@
 <?php
-// ============================================
-// FILE: menu.php
-// Fungsi: Menampilkan semua menu cafe (READ)
-// ============================================
-
 session_start();
 include "config.php";
 
