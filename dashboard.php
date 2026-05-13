@@ -29,14 +29,14 @@ $menu_terbaru = mysqli_query($koneksi, "SELECT * FROM menu ORDER BY created_at D
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Cafe Kiswah</title>
+    <title>Dashboard - Noir Cafe</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- ===== NAVBAR / NAVIGASI ===== -->
 <nav class="navbar">
-    <div class="nav-brand">☕ Cafe Kiswah</div>
+    <div class="nav-brand">☕ Noir Cafe</div>
     <ul class="nav-menu">
         <li><a href="dashboard.php" class="aktif">🏠 Dashboard</a></li>
         <li><a href="menu.php">🍽️ Daftar Menu</a></li>
