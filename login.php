@@ -56,14 +56,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Cafe Kiswah</title>
+    <title>Login - Noir Cafe</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="halaman-auth">
 
 <div class="kotak-auth">
     <div class="logo-auth">☕</div>
-    <h1 class="judul-auth">Cafe Kiswah</h1>
+    <h1 class="judul-auth">Noir Cafe</h1>
     <p class="sub-auth">Masuk ke akun kamu</p>
 
     <?php
