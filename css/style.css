@@ -1,9 +1,3 @@
-/* ============================================
-   FILE: style.css
-   Gaya tampilan untuk seluruh aplikasi Cafe
-   ============================================ */
-
-/* ===== RESET & DASAR ===== */
 * {
   margin: 0;
   padding: 0;
@@ -30,7 +24,7 @@ a {
 .halaman-auth {
   background: linear-gradient(
     135deg,
-    #6f4e37,
+    #3b1b04,
     #c8a97a
   ); /* Gradient coklat kopi */
   min-height: 100vh;
