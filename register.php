@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="kotak-auth">
     <div class="logo-auth">☕</div>
-    <h1 class="judul-auth">Cafe Kiswah</h1>
+    <h1 class="judul-auth">Noir Cafe</h1>
     <p class="sub-auth">Buat akun baru</p>
 
     <?php
