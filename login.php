@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 
     <p class="link-auth">Belum punya akun? <a href="register.php">Daftar di sini</a></p>
-
+    <p class="link-auth">Lupa password? <a href="lupa_password.php">Reset di sini</a></p>
     
 </div>
 
