@@ -1,9 +1,11 @@
 <?php
+// ============================================
+// FILE: tambah_menu.php (update - ada stok)
+// ============================================
 
 session_start();
 include "config.php";
 
-// Proteksi: harus login dulu
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
     exit();
@@ -11,29 +13,25 @@ if (!isset($_SESSION["user_id"])) {
 
 $pesan = "";
 
-// Cek apakah form sudah dikirim
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Ambil data dari form
-    $nama_menu  = trim($_POST["nama_menu"]);
-    $kategori   = $_POST["kategori"];
-    $harga      = $_POST["harga"];
-    $deskripsi  = trim($_POST["deskripsi"]);
+    $nama_menu = trim($_POST["nama_menu"]);
+    $kategori  = $_POST["kategori"];
+    $harga     = $_POST["harga"];
+    $deskripsi = trim($_POST["deskripsi"]);
+    $stok      = $_POST["stok"]; // ambil stok dari form
 
-    // === VALIDASI FORM ===
-    if (empty($nama_menu) || empty($kategori) || empty($harga)) {
-        $pesan = "error|Nama menu, kategori, dan harga wajib diisi!";
+    if (empty($nama_menu) || empty($kategori) || empty($harga) || empty($stok)) {
+        $pesan = "error|Semua kolom wajib diisi!";
 
     } elseif (!is_numeric($harga) || $harga <= 0) {
         $pesan = "error|Harga harus berupa angka positif!";
 
     } else {
-        // Simpan menu baru ke database (CREATE)
-        $sql = "INSERT INTO menu (nama_menu, kategori, harga, deskripsi)
-                VALUES ('$nama_menu', '$kategori', '$harga', '$deskripsi')";
+        $sql = "INSERT INTO menu (nama_menu, kategori, harga, deskripsi, stok)
+                VALUES ('$nama_menu', '$kategori', '$harga', '$deskripsi', '$stok')";
 
         if (mysqli_query($koneksi, $sql)) {
-            // Berhasil! Kembali ke halaman menu dengan pesan sukses
             header("Location: menu.php?pesan=tambah");
             exit();
         } else {
@@ -48,11 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Menu - Cafe Kiswah</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
 <nav class="navbar">
     <div class="nav-brand">☕ Cafe Kiswah</div>
     <ul class="nav-menu">
@@ -81,11 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="grup-form">
                 <label>Nama Menu <span class="wajib">*</span></label>
-                <input type="text"
-                       name="nama_menu"
+                <input type="text" name="nama_menu"
                        placeholder="Contoh: Nasi Goreng Spesial"
-                       value="<?= $_POST['nama_menu'] ?? '' ?>"
-                       required>
+                       value="<?= $_POST['nama_menu'] ?? '' ?>" required>
             </div>
 
             <div class="grup-form">
@@ -100,19 +95,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="grup-form">
                 <label>Harga (Rp) <span class="wajib">*</span></label>
-                <input type="number"
-                       name="harga"
-                       placeholder="Contoh: 15000"
-                       min="1"
-                       value="<?= $_POST['harga'] ?? '' ?>"
-                       required>
+                <input type="number" name="harga"
+                       placeholder="Contoh: 15000" min="1"
+                       value="<?= $_POST['harga'] ?? '' ?>" required>
+            </div>
+
+            <!-- Pilihan stok baru -->
+            <div class="grup-form">
+                <label>Status Stok <span class="wajib">*</span></label>
+                <select name="stok" required>
+                    <option value="">-- Pilih Status --</option>
+                    <option value="Tersedia" <?= ($_POST['stok'] ?? '') == 'Tersedia' ? 'selected' : '' ?>>✅ Tersedia</option>
+                    <option value="Habis"    <?= ($_POST['stok'] ?? '') == 'Habis'    ? 'selected' : '' ?>>❌ Habis</option>
+                </select>
             </div>
 
             <div class="grup-form">
                 <label>Deskripsi <small>(opsional)</small></label>
-                <textarea name="deskripsi"
-                          placeholder="Tulis deskripsi singkat menu ini..."
-                          rows="3"><?= $_POST['deskripsi'] ?? '' ?></textarea>
+                <textarea name="deskripsi" rows="3"
+                          placeholder="Tulis deskripsi singkat menu ini..."><?= $_POST['deskripsi'] ?? '' ?></textarea>
             </div>
 
             <div class="tombol-grup">
