@@ -1,55 +1,48 @@
 <?php
+// ============================================
+// FILE: edit_menu.php (update - ada stok)
+// ============================================
+
 session_start();
 include "config.php";
 
-// Proteksi: harus login dulu
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
     exit();
 }
 
-// Ambil ID menu dari URL (?id=5)
-$id = $_GET["id"] ?? 0;
-
-// Cari data menu berdasarkan ID
+$id  = $_GET["id"] ?? 0;
 $cek = mysqli_query($koneksi, "SELECT * FROM menu WHERE id='$id'");
 
-// Jika menu tidak ditemukan, kembali ke daftar menu
 if (mysqli_num_rows($cek) == 0) {
     header("Location: menu.php");
     exit();
 }
 
-// Ambil data menu yang akan diedit
-$menu = mysqli_fetch_assoc($cek);
-
+$menu  = mysqli_fetch_assoc($cek);
 $pesan = "";
 
-// Cek apakah form sudah dikirim
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Ambil data baru dari form
     $nama_menu = trim($_POST["nama_menu"]);
     $kategori  = $_POST["kategori"];
     $harga     = $_POST["harga"];
     $deskripsi = trim($_POST["deskripsi"]);
+    $stok      = $_POST["stok"];
 
-    // === VALIDASI FORM ===
-    if (empty($nama_menu) || empty($kategori) || empty($harga)) {
-        $pesan = "error|Nama menu, kategori, dan harga wajib diisi!";
+    if (empty($nama_menu) || empty($kategori) || empty($harga) || empty($stok)) {
+        $pesan = "error|Semua kolom wajib diisi!";
 
     } elseif (!is_numeric($harga) || $harga <= 0) {
         $pesan = "error|Harga harus berupa angka positif!";
 
     } else {
-        // Update data menu di database (UPDATE)
         $sql = "UPDATE menu
                 SET nama_menu='$nama_menu', kategori='$kategori',
-                    harga='$harga', deskripsi='$deskripsi'
+                    harga='$harga', deskripsi='$deskripsi', stok='$stok'
                 WHERE id='$id'";
 
         if (mysqli_query($koneksi, $sql)) {
-            // Berhasil! Kembali ke daftar menu
             header("Location: menu.php?pesan=edit");
             exit();
         } else {
@@ -63,14 +56,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Menu - Noir Cafe</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Edit Menu - Cafe Kiswah</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
 <nav class="navbar">
-    <div class="nav-brand">☕ Noir Cafe</div>
+    <div class="nav-brand">☕ Cafe Kiswah</div>
     <ul class="nav-menu">
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php" class="aktif">🍽️ Daftar Menu</a></li>
@@ -97,18 +89,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="grup-form">
                 <label>Nama Menu <span class="wajib">*</span></label>
-                <!-- value diisi otomatis dari data menu yang ada -->
-                <input type="text"
-                       name="nama_menu"
-                       value="<?= $menu['nama_menu'] ?>"
-                       required>
+                <input type="text" name="nama_menu"
+                       value="<?= $menu['nama_menu'] ?>" required>
             </div>
 
             <div class="grup-form">
                 <label>Kategori <span class="wajib">*</span></label>
                 <select name="kategori" required>
                     <option value="">-- Pilih Kategori --</option>
-                    <!-- "selected" muncul otomatis sesuai data lama -->
                     <option value="Makanan" <?= $menu['kategori'] == 'Makanan' ? 'selected' : '' ?>>🍛 Makanan</option>
                     <option value="Minuman" <?= $menu['kategori'] == 'Minuman' ? 'selected' : '' ?>>🥤 Minuman</option>
                     <option value="Snack"   <?= $menu['kategori'] == 'Snack'   ? 'selected' : '' ?>>🍟 Snack</option>
@@ -117,11 +105,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="grup-form">
                 <label>Harga (Rp) <span class="wajib">*</span></label>
-                <input type="number"
-                       name="harga"
-                       value="<?= $menu['harga'] ?>"
-                       min="1"
-                       required>
+                <input type="number" name="harga"
+                       value="<?= $menu['harga'] ?>" min="1" required>
+            </div>
+
+            <!-- Pilihan stok - otomatis terpilih sesuai data lama -->
+            <div class="grup-form">
+                <label>Status Stok <span class="wajib">*</span></label>
+                <select name="stok" required>
+                    <option value="">-- Pilih Status --</option>
+                    <option value="Tersedia" <?= $menu['stok'] == 'Tersedia' ? 'selected' : '' ?>>✅ Tersedia</option>
+                    <option value="Habis"    <?= $menu['stok'] == 'Habis'    ? 'selected' : '' ?>>❌ Habis</option>
+                </select>
             </div>
 
             <div class="grup-form">
