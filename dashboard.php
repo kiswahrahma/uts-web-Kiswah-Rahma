@@ -16,6 +16,9 @@ $total_makanan = mysqli_num_rows(mysqli_query($koneksi, "SELECT id FROM menu WHE
 $total_minuman = mysqli_num_rows(mysqli_query($koneksi, "SELECT id FROM menu WHERE kategori='Minuman'"));
 $total_snack   = mysqli_num_rows(mysqli_query($koneksi, "SELECT id FROM menu WHERE kategori='Snack'"));
 
+// Hitung total pesanan
+$total_pesanan = mysqli_num_rows(mysqli_query($koneksi, "SELECT id FROM pesanan"));
+
 // Ambil 5 menu terbaru
 $menu_terbaru = mysqli_query($koneksi, "SELECT * FROM menu ORDER BY created_at DESC LIMIT 5");
 ?>
@@ -36,6 +39,7 @@ $menu_terbaru = mysqli_query($koneksi, "SELECT * FROM menu ORDER BY created_at D
         <li><a href="dashboard.php" class="aktif">🏠 Dashboard</a></li>
         <li><a href="menu.php">🍽️ Daftar Menu</a></li>
         <li><a href="tambah_menu.php">➕ Tambah Menu</a></li>
+        <li><a href="pesanan.php">📋 Kelola Pesanan</a></li>
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
 </nav>
@@ -50,7 +54,7 @@ $menu_terbaru = mysqli_query($koneksi, "SELECT * FROM menu ORDER BY created_at D
     </div>
 
     <!-- ===== KARTU STATISTIK ===== -->
-    <div class="grid-kartu">
+    <div class="grid-kartu" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
         <div class="kartu kartu-biru">
             <div class="kartu-ikon">🍽️</div>
             <div class="kartu-info">
@@ -80,6 +84,14 @@ $menu_terbaru = mysqli_query($koneksi, "SELECT * FROM menu ORDER BY created_at D
             <div class="kartu-info">
                 <h3><?= $total_snack ?></h3>
                 <p>Menu Snack</p>
+            </div>
+        </div>
+
+        <div class="kartu" style="background: linear-gradient(135deg, #6f4e37, #8d6e63);">
+            <div class="kartu-ikon">📋</div>
+            <div class="kartu-info">
+                <h3><?= $total_pesanan ?></h3>
+                <p>Total Pesanan</p>
             </div>
         </div>
     </div>

@@ -28,14 +28,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pesan = "error|Harga harus berupa angka positif!";
 
     } else {
-        $sql = "INSERT INTO menu (nama_menu, kategori, harga, deskripsi, stok)
-                VALUES ('$nama_menu', '$kategori', '$harga', '$deskripsi', '$stok')";
+        $foto_nama = null;
+        $upload_ok = true;
 
-        if (mysqli_query($koneksi, $sql)) {
-            header("Location: menu.php?pesan=tambah");
-            exit();
-        } else {
-            $pesan = "error|Gagal menyimpan menu. Coba lagi.";
+        // Proses unggah foto
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] == UPLOAD_ERR_OK) {
+            $file_tmp = $_FILES['foto']['tmp_name'];
+            $file_name = $_FILES['foto']['name'];
+            $file_size = $_FILES['foto']['size'];
+            $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+            $allowed_ext = ['jpg', 'jpeg', 'png', 'webp'];
+
+            if (!in_array($ext, $allowed_ext)) {
+                $pesan = "error|Format gambar tidak didukung! Gunakan JPG, JPEG, PNG, atau WEBP.";
+                $upload_ok = false;
+            } elseif ($file_size > 2 * 1024 * 1024) {
+                $pesan = "error|Ukuran gambar terlalu besar! Maksimal 2MB.";
+                $upload_ok = false;
+            } else {
+                $foto_nama = time() . '_' . uniqid() . '.' . $ext;
+                $dest_path = 'uploads/' . $foto_nama;
+                if (!move_uploaded_file($file_tmp, $dest_path)) {
+                    $pesan = "error|Gagal mengunggah foto menu.";
+                    $upload_ok = false;
+                }
+            }
+        }
+
+        if ($upload_ok) {
+            $foto_val = $foto_nama ? "'$foto_nama'" : "NULL";
+            $sql = "INSERT INTO menu (nama_menu, kategori, harga, deskripsi, stok, foto)
+                    VALUES ('$nama_menu', '$kategori', '$harga', '$deskripsi', '$stok', $foto_val)";
+
+            if (mysqli_query($koneksi, $sql)) {
+                header("Location: menu.php?pesan=tambah");
+                exit();
+            } else {
+                // Hapus file yang terlanjur terupload jika query db gagal
+                if ($foto_nama) {
+                    unlink('uploads/' . $foto_nama);
+                }
+                $pesan = "error|Gagal menyimpan menu ke database. Coba lagi.";
+            }
         }
     }
 }
@@ -56,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php">🍽️ Daftar Menu</a></li>
         <li><a href="tambah_menu.php" class="aktif">➕ Tambah Menu</a></li>
+        <li><a href="pesanan.php">📋 Kelola Pesanan</a></li>
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
 </nav>
@@ -74,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>
 
     <div class="kotak kotak-form">
-        <form method="POST" action="">
+        <form method="POST" action="" enctype="multipart/form-data">
 
             <div class="grup-form">
                 <label>Nama Menu <span class="wajib">*</span></label>
@@ -108,6 +143,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value="Tersedia" <?= ($_POST['stok'] ?? '') == 'Tersedia' ? 'selected' : '' ?>>✅ Tersedia</option>
                     <option value="Habis"    <?= ($_POST['stok'] ?? '') == 'Habis'    ? 'selected' : '' ?>>❌ Habis</option>
                 </select>
+            </div>
+
+            <div class="grup-form">
+                <label>Foto Menu <small>(opsional, maks 2MB, format: JPG/PNG/WEBP)</small></label>
+                <input type="file" name="foto" accept="image/*">
             </div>
 
             <div class="grup-form">

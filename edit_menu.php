@@ -37,16 +37,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pesan = "error|Harga harus berupa angka positif!";
 
     } else {
-        $sql = "UPDATE menu
-                SET nama_menu='$nama_menu', kategori='$kategori',
-                    harga='$harga', deskripsi='$deskripsi', stok='$stok'
-                WHERE id='$id'";
+        $foto_nama = $menu['foto']; // Default tetap pakai foto lama
+        $upload_ok = true;
 
-        if (mysqli_query($koneksi, $sql)) {
-            header("Location: menu.php?pesan=edit");
-            exit();
-        } else {
-            $pesan = "error|Gagal mengupdate menu. Coba lagi.";
+        // Cek apakah ada file foto baru yang diunggah
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] == UPLOAD_ERR_OK) {
+            $file_tmp = $_FILES['foto']['tmp_name'];
+            $file_name = $_FILES['foto']['name'];
+            $file_size = $_FILES['foto']['size'];
+            $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+            $allowed_ext = ['jpg', 'jpeg', 'png', 'webp'];
+
+            if (!in_array($ext, $allowed_ext)) {
+                $pesan = "error|Format gambar tidak didukung! Gunakan JPG, JPEG, PNG, atau WEBP.";
+                $upload_ok = false;
+            } elseif ($file_size > 2 * 1024 * 1024) {
+                $pesan = "error|Ukuran gambar terlalu besar! Maksimal 2MB.";
+                $upload_ok = false;
+            } else {
+                // Berhasil divalidasi, upload file baru
+                $new_foto_nama = time() . '_' . uniqid() . '.' . $ext;
+                $dest_path = 'uploads/' . $new_foto_nama;
+
+                if (move_uploaded_file($file_tmp, $dest_path)) {
+                    // Hapus foto lama jika ada
+                    if (!empty($menu['foto']) && file_exists('uploads/' . $menu['foto'])) {
+                        unlink('uploads/' . $menu['foto']);
+                    }
+                    $foto_nama = $new_foto_nama;
+                } else {
+                    $pesan = "error|Gagal mengunggah foto baru.";
+                    $upload_ok = false;
+                }
+            }
+        }
+
+        if ($upload_ok) {
+            $foto_val = $foto_nama ? "'$foto_nama'" : "NULL";
+            $sql = "UPDATE menu
+                    SET nama_menu='$nama_menu', kategori='$kategori',
+                        harga='$harga', deskripsi='$deskripsi', stok='$stok', foto=$foto_val
+                    WHERE id='$id'";
+
+            if (mysqli_query($koneksi, $sql)) {
+                header("Location: menu.php?pesan=edit");
+                exit();
+            } else {
+                // Jika query gagal dan kita baru mengunggah file baru, hapus file baru tersebut agar tidak menumpuk sampah
+                if ($foto_nama !== $menu['foto'] && $foto_nama) {
+                    unlink('uploads/' . $foto_nama);
+                }
+                $pesan = "error|Gagal mengupdate menu ke database. Coba lagi.";
+            }
         }
     }
 }
@@ -67,6 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php" class="aktif">🍽️ Daftar Menu</a></li>
         <li><a href="tambah_menu.php">➕ Tambah Menu</a></li>
+        <li><a href="pesanan.php">📋 Kelola Pesanan</a></li>
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
 </nav>
@@ -85,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>
 
     <div class="kotak kotak-form">
-        <form method="POST" action="">
+        <form method="POST" action="" enctype="multipart/form-data">
 
             <div class="grup-form">
                 <label>Nama Menu <span class="wajib">*</span></label>
@@ -117,6 +160,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value="Tersedia" <?= $menu['stok'] == 'Tersedia' ? 'selected' : '' ?>>✅ Tersedia</option>
                     <option value="Habis"    <?= $menu['stok'] == 'Habis'    ? 'selected' : '' ?>>❌ Habis</option>
                 </select>
+            </div>
+
+            <!-- Pratinjau foto lama & Input file -->
+            <div class="grup-form">
+                <label>Foto Menu Saat Ini</label>
+                <?php if (!empty($menu['foto']) && file_exists('uploads/' . $menu['foto'])) : ?>
+                    <div style="margin-bottom: 10px;">
+                        <img src="uploads/<?= $menu['foto'] ?>" alt="Foto Menu" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 2px solid #6f4e37;">
+                    </div>
+                <?php else : ?>
+                    <p style="color: #999; font-style: italic; margin-bottom: 10px;">Belum ada foto.</p>
+                <?php endif; ?>
+                <label>Unggah Foto Baru <small>(opsional, maks 2MB, format: JPG/PNG/WEBP)</small></label>
+                <input type="file" name="foto" accept="image/*">
             </div>
 
             <div class="grup-form">

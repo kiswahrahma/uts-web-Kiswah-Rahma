@@ -26,16 +26,26 @@ if (isset($_GET["ubah_stok"])) {
     exit();
 }
 
-// Filter kategori
-$filter          = "";
-$kategori_filter = "";
+// Filter kategori & pencarian
+$kategori_filter = $_GET["kategori"] ?? "";
+$cari = $_GET["cari"] ?? "";
 
-if (!empty($_GET["kategori"])) {
-    $kategori_filter = $_GET["kategori"];
-    $filter          = "WHERE kategori='$kategori_filter'";
+$conditions = [];
+if (!empty($kategori_filter)) {
+    $kategori_escaped = mysqli_real_escape_string($koneksi, $kategori_filter);
+    $conditions[] = "kategori='$kategori_escaped'";
+}
+if (!empty($cari)) {
+    $cari_escaped = mysqli_real_escape_string($koneksi, $cari);
+    $conditions[] = "nama_menu LIKE '%$cari_escaped%'";
 }
 
-// Ambil semua menu
+$filter = "";
+if (count($conditions) > 0) {
+    $filter = "WHERE " . implode(" AND ", $conditions);
+}
+
+// Ambil semua menu sesuai filter dan pencarian
 $hasil = mysqli_query($koneksi, "SELECT * FROM menu $filter ORDER BY kategori, nama_menu");
 
 $pesan = $_GET["pesan"] ?? "";
@@ -84,6 +94,7 @@ $pesan = $_GET["pesan"] ?? "";
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php" class="aktif">🍽️ Daftar Menu</a></li>
         <li><a href="tambah_menu.php">➕ Tambah Menu</a></li>
+        <li><a href="pesanan.php">📋 Kelola Pesanan</a></li>
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
 </nav>
@@ -101,15 +112,30 @@ $pesan = $_GET["pesan"] ?? "";
         <div class="pesan sukses">✅ Menu berhasil diperbarui!</div>
     <?php elseif ($pesan == "hapus") : ?>
         <div class="pesan error">🗑️ Menu berhasil dihapus!</div>
+    <?php elseif ($pesan == "gagal_hapus") : ?>
+        <div class="pesan error">⚠️ Menu tidak bisa dihapus karena sudah ada dalam riwayat pesanan! Silakan ubah status stok menjadi <strong>Habis</strong> jika menu tidak lagi disajikan.</div>
     <?php elseif ($pesan == "stok") : ?>
         <div class="pesan sukses">🔄 Status stok berhasil diubah!</div>
     <?php endif; ?>
 
+    <!-- Form Pencarian -->
+    <form method="GET" action="" class="form-cari-wadah" style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
+        <?php if (!empty($kategori_filter)) : ?>
+            <input type="hidden" name="kategori" value="<?= htmlspecialchars($kategori_filter) ?>">
+        <?php endif; ?>
+        <input type="text" name="cari" placeholder="🔍 Cari nama menu..." value="<?= htmlspecialchars($cari) ?>" 
+               style="flex: 1; padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
+        <button type="submit" class="tombol-utama" style="width: auto; padding: 10px 20px; margin: 0;">Cari</button>
+        <?php if (!empty($cari)) : ?>
+            <a href="menu.php?kategori=<?= urlencode($kategori_filter) ?>" class="tombol-batal" style="padding: 10px 20px; text-decoration: none; line-height: 1.5;">Reset</a>
+        <?php endif; ?>
+    </form>
+
     <div class="filter-kategori">
-        <a href="menu.php" class="tombol-filter <?= empty($kategori_filter) ? 'aktif' : '' ?>">Semua</a>
-        <a href="menu.php?kategori=Makanan" class="tombol-filter <?= $kategori_filter == 'Makanan' ? 'aktif' : '' ?>">🍛 Makanan</a>
-        <a href="menu.php?kategori=Minuman" class="tombol-filter <?= $kategori_filter == 'Minuman' ? 'aktif' : '' ?>">🥤 Minuman</a>
-        <a href="menu.php?kategori=Snack" class="tombol-filter <?= $kategori_filter == 'Snack' ? 'aktif' : '' ?>">🍟 Snack</a>
+        <a href="menu.php?cari=<?= urlencode($cari) ?>" class="tombol-filter <?= empty($kategori_filter) ? 'aktif' : '' ?>">Semua</a>
+        <a href="menu.php?kategori=Makanan&cari=<?= urlencode($cari) ?>" class="tombol-filter <?= $kategori_filter == 'Makanan' ? 'aktif' : '' ?>">🍛 Makanan</a>
+        <a href="menu.php?kategori=Minuman&cari=<?= urlencode($cari) ?>" class="tombol-filter <?= $kategori_filter == 'Minuman' ? 'aktif' : '' ?>">🥤 Minuman</a>
+        <a href="menu.php?kategori=Snack&cari=<?= urlencode($cari) ?>" class="tombol-filter <?= $kategori_filter == 'Snack' ? 'aktif' : '' ?>">🍟 Snack</a>
     </div>
 
     <div class="kotak">
@@ -172,7 +198,7 @@ $pesan = $_GET["pesan"] ?? "";
                         <a href="edit_menu.php?id=<?= $baris["id"] ?>" class="tombol-edit">✏️ Edit</a>
                         <a href="hapus_menu.php?id=<?= $baris["id"] ?>"
                            class="tombol-hapus"
-                           onclick="return confirm('Yakin ingin menghapus menu ini?')">
+                           onclick="return confirm('Yakin ingin menghapus menu ini?');">
                            🗑️ Hapus
                         </a>
                     </td>
