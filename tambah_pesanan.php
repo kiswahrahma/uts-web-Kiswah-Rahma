@@ -111,7 +111,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <ul class="nav-menu">
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php">🍽️ Daftar Menu</a></li>
-        <li><a href="tambah_menu.php">➕ Tambah Menu</a></li>
         <li><a href="pesanan.php" class="aktif">📋 Kelola Pesanan</a></li>
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
@@ -201,7 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?php if (mysqli_num_rows($menu_result) == 0) : ?>
                     <tr>
                         <td colspan="5" style="text-align:center; color:#999; padding:30px;">
-                            Tidak ada menu tersedia untuk dipesan. <a href="tambah_menu.php">Tambah menu terlebih dahulu!</a>
+                            Tidak ada menu tersedia untuk dipesan. <a href="menu.php">Tambah menu terlebih dahulu!</a>
                         </td>
                     </tr>
                     <?php endif; ?>

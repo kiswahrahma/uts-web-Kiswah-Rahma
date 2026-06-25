@@ -45,7 +45,7 @@ $pesan = $_GET["pesan"] ?? "";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola Pesanan - Cafe Kiswah</title>
+    <title>Kelola Pesanan - Noir Cafe</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         .badge-pending {
@@ -85,16 +85,50 @@ $pesan = $_GET["pesan"] ?? "";
         .tombol-detail:hover {
             background: #37474f;
         }
+        
+        /* CSS MODAL FIX POP-UP */
+        .modal-overlay {
+            position: fixed !important;
+            top: 0 !important; left: 0 !important;
+            width: 100% !important; height: 100% !important;
+            background: rgba(0, 0, 0, 0.6) !important;
+            backdrop-filter: blur(5px) !important;
+            display: flex !important;
+            align-items: center !important; justify-content: center !important;
+            z-index: 99999 !important;
+            opacity: 0 !important; visibility: hidden !important;
+            transition: opacity 0.3s ease, visibility 0.3s ease !important;
+        }
+        .modal-overlay.aktif { opacity: 1 !important; visibility: visible !important; }
+        .modal-kotak {
+            background: white !important; width: 95% !important; max-width: 500px !important;
+            border-radius: 14px !important; box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3) !important;
+            overflow: hidden !important; transform: translateY(-30px) !important;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+            display: flex !important; flex-direction: column !important;
+        }
+        .modal-overlay.aktif .modal-kotak { transform: translateY(0) !important; }
+        .modal-overlay .modal-header {
+            background: #6f4e37 !important; color: white !important; padding: 16px 20px !important;
+            display: flex !important; justify-content: space-between !important; align-items: center !important;
+            width: 100% !important; flex-direction: row !important;
+        }
+        .modal-overlay .modal-header h3 { margin: 0 !important; color: white !important; font-size: 18px; }
+        .modal-close {
+            background: none !important; border: none !important; color: white !important;
+            font-size: 24px !important; cursor: pointer !important; display: flex !important;
+            align-items: center !important; justify-content: center !important; width: 30px !important; height: 30px !important;
+        }
+        .modal-body { padding: 20px 24px 24px !important; max-height: 75vh !important; overflow-y: auto !important; text-align: left !important; }
     </style>
 </head>
 <body>
 
 <nav class="navbar">
-    <div class="nav-brand">☕ Cafe Kiswah</div>
+    <div class="nav-brand">☕ Noir Cafe</div>
     <ul class="nav-menu">
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php">🍽️ Daftar Menu</a></li>
-        <li><a href="tambah_menu.php">➕ Tambah Menu</a></li>
         <li><a href="pesanan.php" class="aktif">📋 Kelola Pesanan</a></li>
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
@@ -104,7 +138,11 @@ $pesan = $_GET["pesan"] ?? "";
 
     <div class="header-halaman">
         <h2>📋 Daftar Pesanan Cafe</h2>
-        <a href="tambah_pesanan.php" class="tombol-utama">+ Tambah Pesanan</a>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="export_pesanan_excel.php" class="tombol-edit" style="background: #2e7d32; padding: 10px 15px; font-size: 14px; display: inline-flex; align-items: center; gap: 4px;">📥 Ekspor Semua (Excel)</a>
+            <button onclick="bukaModalImport()" class="tombol-utama" style="background: #ef6c00; width: auto; padding: 10px 15px; margin: 0; font-size: 14px; display: inline-flex; align-items: center; gap: 4px;">📤 Impor Excel</button>
+            <a href="tambah_pesanan.php" class="tombol-utama" style="width: auto; padding: 10px 15px; margin: 0; font-size: 14px; display: inline-flex; align-items: center; gap: 4px;">+ Tambah Pesanan</a>
+        </div>
     </div>
 
     <?php if ($pesan == "tambah") : ?>
@@ -113,6 +151,10 @@ $pesan = $_GET["pesan"] ?? "";
         <div class="pesan sukses">✅ Pesanan berhasil diperbarui!</div>
     <?php elseif ($pesan == "hapus") : ?>
         <div class="pesan error">🗑️ Pesanan berhasil dihapus!</div>
+    <?php elseif ($pesan == "import_sukses") : ?>
+        <div class="pesan sukses">✅ Data pesanan berhasil diimpor dari Excel!</div>
+    <?php elseif ($pesan == "import_gagal") : ?>
+        <div class="pesan error">❌ Gagal mengimpor pesanan: <?= htmlspecialchars($_GET["error"] ?? "") ?></div>
     <?php endif; ?>
 
     <!-- Form Pencarian -->
@@ -198,5 +240,36 @@ $pesan = $_GET["pesan"] ?? "";
     </div>
 
 </div>
+
+<!-- MODAL IMPORT EXCEL -->
+<div class="modal-overlay" id="modalImportExcel">
+    <div class="modal-kotak">
+        <div class="modal-header">
+            <h3>📤 Impor Pesanan dari Excel</h3>
+            <button type="button" class="modal-close" onclick="tutupModalImport()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="import_pesanan_excel.php" enctype="multipart/form-data">
+                <div class="grup-form">
+                    <label>Pilih File Excel (.xlsx) <span class="wajib">*</span></label>
+                    <input type="file" name="file_excel" accept=".xlsx" required>
+                </div>
+                <p style="font-size: 12px; color: #666; margin-bottom: 20px; line-height: 1.4;">
+                    * Pastikan struktur kolom file Excel Anda sama dengan format hasil ekspor:<br>
+                    <strong>ID Pesanan | Username Pelanggan | Tanggal | Status | Catatan | Nama Menu | Jumlah | Harga Satuan | Subtotal</strong>
+                </p>
+                <div class="tombol-grup">
+                    <button type="submit" class="tombol-utama">💾 Mulai Impor</button>
+                    <button type="button" class="tombol-batal" onclick="tutupModalImport()">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function bukaModalImport() { document.getElementById('modalImportExcel').classList.add('aktif'); }
+function tutupModalImport() { document.getElementById('modalImportExcel').classList.remove('aktif'); }
+</script>
 </body>
 </html>

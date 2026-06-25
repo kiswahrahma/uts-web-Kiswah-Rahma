@@ -108,7 +108,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <ul class="nav-menu">
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php" class="aktif">🍽️ Daftar Menu</a></li>
-        <li><a href="tambah_menu.php">➕ Tambah Menu</a></li>
         <li><a href="pesanan.php">📋 Kelola Pesanan</a></li>
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>

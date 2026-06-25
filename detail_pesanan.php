@@ -40,7 +40,7 @@ $result_detail = mysqli_query($koneksi, $query_detail);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Pesanan #<?= $pesanan['id'] ?> - Cafe Kiswah</title>
+    <title>Detail Pesanan #<?= $pesanan['id'] ?> - Noir Cafe</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         .badge-pending {
@@ -144,11 +144,10 @@ $result_detail = mysqli_query($koneksi, $query_detail);
 <body>
 
 <nav class="navbar">
-    <div class="nav-brand">☕ Cafe Kiswah</div>
+    <div class="nav-brand">☕ Noir Cafe</div>
     <ul class="nav-menu">
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php">🍽️ Daftar Menu</a></li>
-        <li><a href="tambah_menu.php">➕ Tambah Menu</a></li>
         <li><a href="pesanan.php" class="aktif">📋 Kelola Pesanan</a></li>
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
@@ -158,15 +157,16 @@ $result_detail = mysqli_query($koneksi, $query_detail);
     
     <!-- Header struk saat diprint -->
     <div class="struk-header" style="display: none; text-align: center; margin-bottom: 20px;">
-        <h2>☕ Cafe Kiswah</h2>
-        <p>Jl. Cafe Kiswah No. 1, Jakarta</p>
+        <h2>☕ Noir Cafe</h2>
+        <p>Jl. Noir Cafe No. 1, Jakarta</p>
         <p>------------------------------------------</p>
     </div>
 
     <div class="header-halaman">
         <h2>👁️ Detail Pesanan #<?= $pesanan['id'] ?></h2>
-        <div class="no-print" style="display: flex; gap: 10px;">
+        <div class="no-print" style="display: flex; gap: 10px; flex-wrap: wrap;">
             <button onclick="window.print()" class="tombol-utama" style="background: #37474f;">🖨️ Cetak Struk</button>
+            <a href="export_detail_pesanan_word.php?id=<?= $pesanan['id'] ?>" class="tombol-edit" style="padding: 12px 24px; font-size: 14px; background: #0288d1;">⬇️ Export Word</a>
             <a href="edit_pesanan.php?id=<?= $pesanan['id'] ?>" class="tombol-edit" style="padding: 12px 24px; font-size: 14px;">✏️ Edit Status</a>
             <a href="pesanan.php" class="tombol-batal">← Kembali</a>
         </div>
