@@ -5,7 +5,6 @@
 
 session_start();
 include "config.php";
-<<<<<<< HEAD
 include "auth.php";
 require_admin();
 
@@ -13,17 +12,6 @@ $pesan = "";
 
 // Daftar metode pembayaran
 $metode_tersedia = ['Tunai', 'Transfer Bank', 'QRIS', 'Dompet Digital'];
-
-=======
-
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
-    exit();
-}
-
-$pesan = "";
-
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 // Ambil data user untuk dropdown pelanggan
 $users_result = mysqli_query($koneksi, "SELECT id, nama, username FROM users ORDER BY nama");
 
@@ -31,7 +19,6 @@ $users_result = mysqli_query($koneksi, "SELECT id, nama, username FROM users ORD
 $menu_result = mysqli_query($koneksi, "SELECT id, nama_menu, kategori, harga FROM menu WHERE stok='Tersedia' ORDER BY kategori, nama_menu");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-<<<<<<< HEAD
     $pelanggan_id      = $_POST["user_id"];
     $status            = $_POST["status"];
     $catatan           = trim($_POST["catatan"]);
@@ -41,12 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!in_array($metode_pembayaran, $metode_tersedia)) {
         $metode_pembayaran = 'Tunai';
     }
-=======
-    $pelanggan_id = $_POST["user_id"];
-    $status       = $_POST["status"];
-    $catatan      = trim($_POST["catatan"]);
-    $jumlah_order = $_POST["jumlah"] ?? []; // Array dengan key menu_id dan value quantity
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
     // Validasi: Cek apakah ada menu yang dipesan (jumlah > 0)
     $ada_pesanan = false;
@@ -63,14 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pesan = "error|Silakan pilih minimal 1 menu dengan jumlah lebih dari 0!";
     } else {
         // 1. Insert ke tabel pesanan terlebih dahulu (dengan total_harga = 0 dulu)
-<<<<<<< HEAD
         $metode_esc    = mysqli_real_escape_string($koneksi, $metode_pembayaran);
         $query_pesanan = "INSERT INTO pesanan (user_id, status, total_harga, catatan, metode_pembayaran) 
                           VALUES ('$pelanggan_id', '$status', 0, '$catatan', '$metode_esc')";
-=======
-        $query_pesanan = "INSERT INTO pesanan (user_id, status, total_harga, catatan) 
-                          VALUES ('$pelanggan_id', '$status', 0, '$catatan')";
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
         
         if (mysqli_query($koneksi, $query_pesanan)) {
             $pesanan_id = mysqli_insert_id($koneksi);
@@ -141,10 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php">🍽️ Daftar Menu</a></li>
         <li><a href="pesanan.php" class="aktif">📋 Kelola Pesanan</a></li>
-<<<<<<< HEAD
         <li><a href="index.php" target="_blank">🌐 Lihat Web</a></li>
-=======
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
 </nav>
@@ -191,7 +164,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="grup-form">
-<<<<<<< HEAD
                 <label>💳 Metode Pembayaran <span class="wajib">*</span></label>
                 <select name="metode_pembayaran" required>
                     <?php foreach ($metode_tersedia as $metode) : ?>
@@ -209,8 +181,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="grup-form">
-=======
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
                 <label>Catatan Tambahan <small>(opsional)</small></label>
                 <textarea name="catatan" rows="2" placeholder="Contoh: Kopi kurangi gula, es batu dipisah..."></textarea>
             </div>

@@ -2,7 +2,6 @@
 session_start();       // Mulai session
 include "config.php"; // Sambungkan ke database
 
-<<<<<<< HEAD
 // Jika sudah login, langsung ke halaman sesuai role
 if (isset($_SESSION["user_id"])) {
     header("Location: " . (($_SESSION["role"] ?? "") === "admin" ? "dashboard.php" : "index.php"));

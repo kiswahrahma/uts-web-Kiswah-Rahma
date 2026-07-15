@@ -5,16 +5,8 @@
 
 session_start();
 include "config.php";
-<<<<<<< HEAD
 include "auth.php";
 require_admin();
-=======
-
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
-    exit();
-}
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
 $id = $_GET['id'] ?? 0;
 $id = mysqli_real_escape_string($koneksi, $id);
@@ -161,7 +153,6 @@ header("Content-Disposition: attachment; filename=Detail_Pesanan_#" . $pesanan['
             <td><strong><?= $pesanan['status'] ?></strong></td>
         </tr>
         <tr>
-<<<<<<< HEAD
             <td class="label">Metode Pembayaran:</td>
             <td>
                 <?php
@@ -176,8 +167,6 @@ header("Content-Disposition: attachment; filename=Detail_Pesanan_#" . $pesanan['
             </td>
         </tr>
         <tr>
-=======
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
             <td class="label">Catatan:</td>
             <td><?= htmlspecialchars($pesanan['catatan'] ?: 'Tidak ada catatan.') ?></td>
         </tr>

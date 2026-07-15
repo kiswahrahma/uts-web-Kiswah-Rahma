@@ -5,16 +5,8 @@
 
 session_start();
 include "config.php";
-<<<<<<< HEAD
 include "auth.php";
 require_admin();
-=======
-
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
-    exit();
-}
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -42,7 +34,6 @@ $sheet->setCellValue('A1', 'ID Pesanan');
 $sheet->setCellValue('B1', 'Username Pelanggan');
 $sheet->setCellValue('C1', 'Tanggal');
 $sheet->setCellValue('D1', 'Status');
-<<<<<<< HEAD
 $sheet->setCellValue('E1', 'Metode Pembayaran');
 $sheet->setCellValue('F1', 'Catatan');
 $sheet->setCellValue('G1', 'Nama Menu');
@@ -52,16 +43,6 @@ $sheet->setCellValue('J1', 'Subtotal');
 
 $sheet->getStyle('A1:J1')->getFont()->setBold(true);
 $sheet->getStyle('A1:J1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-=======
-$sheet->setCellValue('E1', 'Catatan');
-$sheet->setCellValue('F1', 'Nama Menu');
-$sheet->setCellValue('G1', 'Jumlah');
-$sheet->setCellValue('H1', 'Harga Satuan');
-$sheet->setCellValue('I1', 'Subtotal');
-
-$sheet->getStyle('A1:I1')->getFont()->setBold(true);
-$sheet->getStyle('A1:I1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
 $rowNum = 2;
 while ($row = mysqli_fetch_assoc($result)) {
@@ -69,20 +50,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sheet->setCellValue("B{$rowNum}", $row['username_user']);
     $sheet->setCellValue("C{$rowNum}", $row['tanggal']);
     $sheet->setCellValue("D{$rowNum}", $row['status']);
-<<<<<<< HEAD
     $sheet->setCellValue("E{$rowNum}", $row['metode_pembayaran'] ?: 'Tunai');
     $sheet->setCellValue("F{$rowNum}", $row['catatan'] ?: '');
     $sheet->setCellValue("G{$rowNum}", $row['nama_menu'] ?: '');
     $sheet->setCellValue("H{$rowNum}", $row['jumlah'] ?: 0);
     $sheet->setCellValue("I{$rowNum}", $row['harga_satuan'] ?: 0);
     $sheet->setCellValue("J{$rowNum}", $row['subtotal'] ?: 0);
-=======
-    $sheet->setCellValue("E{$rowNum}", $row['catatan'] ?: '');
-    $sheet->setCellValue("F{$rowNum}", $row['nama_menu'] ?: '');
-    $sheet->setCellValue("G{$rowNum}", $row['jumlah'] ?: 0);
-    $sheet->setCellValue("H{$rowNum}", $row['harga_satuan'] ?: 0);
-    $sheet->setCellValue("I{$rowNum}", $row['subtotal'] ?: 0);
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
     $rowNum++;
 }
 
@@ -93,17 +66,10 @@ $thinBorder = [
         'color' => ['argb' => 'FFCCCCCC'],
     ],
 ];
-<<<<<<< HEAD
 $sheet->getStyle("A1:J" . ($rowNum - 1))->applyFromArray($thinBorder);
 
 // Autofit Kolom
 foreach (range('A', 'J') as $col) {
-=======
-$sheet->getStyle("A1:I" . ($rowNum - 1))->applyFromArray($thinBorder);
-
-// Autofit Kolom
-foreach (range('A', 'I') as $col) {
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
     $sheet->getColumnDimension($col)->setAutoSize(true);
 }
 

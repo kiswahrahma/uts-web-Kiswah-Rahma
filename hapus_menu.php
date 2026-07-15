@@ -2,17 +2,8 @@
 
 session_start();
 include "config.php";
-<<<<<<< HEAD
 include "auth.php";
 require_admin();
-=======
-
-// Proteksi: harus login dulu
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
-    exit();
-}
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
 // Ambil ID dari URL (?id=5)
 $id = $_GET["id"] ?? 0;

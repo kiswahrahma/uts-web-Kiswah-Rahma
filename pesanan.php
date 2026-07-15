@@ -5,16 +5,8 @@
 
 session_start();
 include "config.php";
-<<<<<<< HEAD
 include "auth.php";
 require_admin();
-=======
-
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
-    exit();
-}
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
 // Filter Status & Pencarian
 $status_filter = $_GET["status"] ?? "";
@@ -135,10 +127,7 @@ $pesan = $_GET["pesan"] ?? "";
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php">🍽️ Daftar Menu</a></li>
         <li><a href="pesanan.php" class="aktif">📋 Kelola Pesanan</a></li>
-<<<<<<< HEAD
         <li><a href="index.php" target="_blank">🌐 Lihat Web</a></li>
-=======
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
 </nav>
@@ -196,10 +185,7 @@ $pesan = $_GET["pesan"] ?? "";
                     <th>Tanggal & Waktu</th>
                     <th>Pelanggan</th>
                     <th>Status</th>
-<<<<<<< HEAD
                     <th>Metode Bayar</th>
-=======
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
                     <th>Total Harga</th>
                     <th>Catatan</th>
                     <th>Aksi</th>
@@ -227,7 +213,6 @@ $pesan = $_GET["pesan"] ?? "";
                             ?>
                         </span>
                     </td>
-<<<<<<< HEAD
                     <td>
                         <?php
                         $mp = $baris['metode_pembayaran'] ?? 'Tunai';
@@ -241,8 +226,6 @@ $pesan = $_GET["pesan"] ?? "";
                             <?= $mp_icon ?> <?= htmlspecialchars($mp) ?>
                         </span>
                     </td>
-=======
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
                     <td><strong>Rp <?= number_format($baris["total_harga"], 0, ',', '.') ?></strong></td>
                     <td><?= htmlspecialchars($baris["catatan"] ?? '-') ?></td>
                     <td class="kolom-aksi">
@@ -259,11 +242,7 @@ $pesan = $_GET["pesan"] ?? "";
 
                 <?php if (mysqli_num_rows($hasil) == 0) : ?>
                 <tr>
-<<<<<<< HEAD
                     <td colspan="9" style="text-align:center; color:#999; padding:30px;">
-=======
-                    <td colspan="8" style="text-align:center; color:#999; padding:30px;">
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
                         Belum ada data pesanan. <a href="tambah_pesanan.php">Tambah pesanan sekarang!</a>
                     </td>
                 </tr>
