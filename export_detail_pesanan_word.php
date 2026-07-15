@@ -167,7 +167,7 @@ header("Content-Disposition: attachment; filename=Detail_Pesanan_#" . $pesanan['
             </td>
         </tr>
         <tr>
-            <td class="label">Catatan:</td>
+          <td class="label">Catatan:</td>
             <td><?= htmlspecialchars($pesanan['catatan'] ?: 'Tidak ada catatan.') ?></td>
         </tr>
     </table>
