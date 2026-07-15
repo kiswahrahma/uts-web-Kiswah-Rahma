@@ -5,8 +5,16 @@
 
 session_start();
 include "config.php";
+<<<<<<< HEAD
 include "auth.php";
 require_admin();
+=======
+
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit();
+}
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
 $id = $_GET["id"] ?? 0;
 $id = mysqli_real_escape_string($koneksi, $id);
@@ -23,9 +31,12 @@ if (mysqli_num_rows($result_pesanan) == 0) {
 $pesanan = mysqli_fetch_assoc($result_pesanan);
 $pesan_status = "";
 
+<<<<<<< HEAD
 // Daftar metode pembayaran
 $metode_tersedia = ['Tunai', 'Transfer Bank', 'QRIS', 'Dompet Digital'];
 
+=======
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 // 2. Ambil list user untuk dropdown
 $users_result = mysqli_query($koneksi, "SELECT id, nama, username FROM users ORDER BY nama");
 
@@ -37,6 +48,7 @@ $query_detail = "SELECT pesanan_detail.*, menu.nama_menu, menu.kategori
 $result_detail = mysqli_query($koneksi, $query_detail);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<<<<<<< HEAD
     $pelanggan_id      = $_POST["user_id"];
     $status            = $_POST["status"];
     $catatan           = trim($_POST["catatan"]);
@@ -45,13 +57,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!in_array($metode_pembayaran, $metode_tersedia)) {
         $metode_pembayaran = 'Tunai';
     }
+=======
+    $pelanggan_id = $_POST["user_id"];
+    $status       = $_POST["status"];
+    $catatan      = trim($_POST["catatan"]);
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
     if (empty($pelanggan_id) || empty($status)) {
         $pesan_status = "error|Semua kolom wajib diisi!";
     } else {
+<<<<<<< HEAD
         $metode_esc = mysqli_real_escape_string($koneksi, $metode_pembayaran);
         $sql = "UPDATE pesanan 
                 SET user_id='$pelanggan_id', status='$status', catatan='$catatan', metode_pembayaran='$metode_esc' 
+=======
+        $sql = "UPDATE pesanan 
+                SET user_id='$pelanggan_id', status='$status', catatan='$catatan' 
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
                 WHERE id='$id'";
 
         if (mysqli_query($koneksi, $sql)) {
@@ -91,7 +113,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php">🍽️ Daftar Menu</a></li>
         <li><a href="pesanan.php" class="aktif">📋 Kelola Pesanan</a></li>
+<<<<<<< HEAD
         <li><a href="index.php" target="_blank">🌐 Lihat Web</a></li>
+=======
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
 </nav>
@@ -139,6 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="grup-form">
+<<<<<<< HEAD
                     <label>💳 Metode Pembayaran <span class="wajib">*</span></label>
                     <select name="metode_pembayaran" required>
                         <?php foreach ($metode_tersedia as $metode) : ?>
@@ -156,6 +182,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="grup-form">
+=======
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
                     <label>Catatan Tambahan <small>(opsional)</small></label>
                     <textarea name="catatan" rows="3" placeholder="Tambahkan catatan..."><?= htmlspecialchars($pesanan['catatan']) ?></textarea>
                 </div>

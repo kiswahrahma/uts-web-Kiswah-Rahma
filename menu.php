@@ -1,8 +1,16 @@
 <?php
 session_start();
 include "config.php";
+<<<<<<< HEAD
 include "auth.php";
 require_admin();
+=======
+
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit();
+}
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
 // ============================================
 // PROSES TAMBAH MENU
@@ -176,7 +184,10 @@ $pesan = $_GET["pesan"] ?? "";
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php" class="aktif">🍽️ Daftar Menu</a></li>
         <li><a href="pesanan.php">📋 Kelola Pesanan</a></li>
+<<<<<<< HEAD
         <li><a href="index.php" target="_blank">🌐 Lihat Web</a></li>
+=======
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
 </nav>

@@ -5,8 +5,16 @@
 
 session_start();
 include "config.php";
+<<<<<<< HEAD
 include "auth.php";
 require_admin();
+=======
+
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit();
+}
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
 $id  = $_GET["id"] ?? 0;
 $cek = mysqli_query($koneksi, "SELECT * FROM menu WHERE id='$id'");

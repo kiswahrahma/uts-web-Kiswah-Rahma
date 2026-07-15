@@ -5,8 +5,16 @@
 
 session_start();
 include "config.php";
+<<<<<<< HEAD
 include "auth.php";
 require_admin();
+=======
+
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit();
+}
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
 $id = $_GET["id"] ?? 0;
 $id = mysqli_real_escape_string($koneksi, $id);
@@ -146,7 +154,10 @@ $result_detail = mysqli_query($koneksi, $query_detail);
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="menu.php">🍽️ Daftar Menu</a></li>
         <li><a href="pesanan.php" class="aktif">📋 Kelola Pesanan</a></li>
+<<<<<<< HEAD
         <li><a href="index.php" target="_blank">🌐 Lihat Web</a></li>
+=======
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
 </nav>
@@ -198,6 +209,7 @@ $result_detail = mysqli_query($koneksi, $query_detail);
                     ?>
                 </span>
             </div>
+<<<<<<< HEAD
             <div class="meta-item">
                 <strong>Metode Pembayaran:</strong>
                 <?php
@@ -212,6 +224,8 @@ $result_detail = mysqli_query($koneksi, $query_detail);
                     <?= $mp_icon ?> <?= htmlspecialchars($mp) ?>
                 </span>
             </div>
+=======
+>>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
         </div>
 
         <div class="grup-form" style="margin-top: 15px;">
