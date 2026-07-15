@@ -70,7 +70,7 @@ $sheet->getStyle("A1:J" . ($rowNum - 1))->applyFromArray($thinBorder);
 
 // Autofit Kolom
 foreach (range('A', 'J') as $col) {
-    $sheet->getColumnDimension($col)->setAutoSize(true);
+   $sheet->getColumnDimension($col)->setAutoSize(true);
 }
 
 $filename = 'Daftar_Semua_Pesanan.xlsx';
