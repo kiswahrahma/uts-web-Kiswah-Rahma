@@ -6,19 +6,11 @@ include "config.php"; // Sambungkan ke database
 // Jika sudah login, langsung ke halaman sesuai role
 if (isset($_SESSION["user_id"])) {
     header("Location: " . (($_SESSION["role"] ?? "") === "admin" ? "dashboard.php" : "index.php"));
-=======
-// Jika sudah login, langsung ke dashboard
-if (isset($_SESSION["user_id"])) {
-    header("Location: dashboard.php");
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
     exit();
 }
 
 $pesan = "";
-<<<<<<< HEAD
 $redirect = $_GET["redirect"] ?? ($_POST["redirect"] ?? "");
-=======
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
 // Cek apakah form login sudah dikirim
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -43,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["user_id"]   = $user["id"];
                 $_SESSION["user_nama"] = $user["nama"];
                 $_SESSION["username"]  = $user["username"];
-<<<<<<< HEAD
                 $_SESSION["role"]      = $user["role"] ?? "pelanggan";
 
                 // Kalau ada halaman tujuan sebelumnya (misal mau pesan), balik ke situ.
@@ -55,11 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } else {
                     header("Location: index.php");
                 }
-=======
-
-                // Arahkan ke dashboard
-                header("Location: dashboard.php");
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
                 exit();
             } else {
                 $pesan = "error|Password salah! Coba lagi.";
@@ -81,17 +67,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="halaman-auth">
 
 <div class="kotak-auth">
-<<<<<<< HEAD
     <a href="index.php" style="text-decoration: none; color: inherit; display: inline-block; margin-bottom: 5px;">
         <div class="logo-auth" style="margin-bottom: 0;">☕</div>
         <h1 class="judul-auth" style="margin-top: 5px; margin-bottom: 0;">Noir Cafe</h1>
     </a>
     <p class="sub-auth" style="margin-top: 5px;">Masuk ke akun kamu</p>
-=======
-    <div class="logo-auth">☕</div>
-    <h1 class="judul-auth">Noir Cafe</h1>
-    <p class="sub-auth">Masuk ke akun kamu</p>
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
     <?php
     if (!empty($pesan)) {
@@ -101,12 +81,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>
 
     <form method="POST" action="">
-<<<<<<< HEAD
         <?php if (!empty($redirect)) : ?>
             <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirect) ?>">
         <?php endif; ?>
-=======
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
         <div class="grup-form">
             <label>Username</label>
             <input type="text" name="username" placeholder="Masukkan username" required>

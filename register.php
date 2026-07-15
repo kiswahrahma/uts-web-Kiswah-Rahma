@@ -33,13 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Enkripsi password agar tidak tersimpan polos di database
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-<<<<<<< HEAD
             // Simpan user baru ke database (akun baru selalu jadi pelanggan)
             $sql = "INSERT INTO users (nama, username, password, role) VALUES ('$nama', '$username', '$password_hash', 'pelanggan')";
-=======
-            // Simpan user baru ke database
-            $sql = "INSERT INTO users (nama, username, password) VALUES ('$nama', '$username', '$password_hash')";
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
             if (mysqli_query($koneksi, $sql)) {
                 $pesan = "sukses|Akun berhasil dibuat! Silakan login.";
@@ -61,17 +56,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="halaman-auth">
 
 <div class="kotak-auth">
-<<<<<<< HEAD
     <a href="index.php" style="text-decoration: none; color: inherit; display: inline-block; margin-bottom: 5px;">
         <div class="logo-auth" style="margin-bottom: 0;">☕</div>
         <h1 class="judul-auth" style="margin-top: 5px; margin-bottom: 0;">Noir Cafe</h1>
     </a>
     <p class="sub-auth" style="margin-top: 5px;">Buat akun baru</p>
-=======
-    <div class="logo-auth">☕</div>
-    <h1 class="judul-auth">Noir Cafe</h1>
-    <p class="sub-auth">Buat akun baru</p>
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
     <?php
     // Tampilkan pesan error atau sukses jika ada
