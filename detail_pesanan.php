@@ -198,6 +198,20 @@ $result_detail = mysqli_query($koneksi, $query_detail);
                     ?>
                 </span>
             </div>
+            <div class="meta-item">
+                <strong>Metode Pembayaran:</strong>
+                <?php
+                $mp = $pesanan['metode_pembayaran'] ?? 'Tunai';
+                $mp_icon = '';
+                if ($mp === 'Tunai') $mp_icon = '💵';
+                elseif ($mp === 'Transfer Bank') $mp_icon = '🏦';
+                elseif ($mp === 'QRIS') $mp_icon = '📱';
+                elseif ($mp === 'Dompet Digital') $mp_icon = '👛';
+                ?>
+                <span style="background: #fdf3e3; color: #6f4e37; padding: 3px 12px; border-radius: 20px; font-weight: 600; font-size: 13px;">
+                    <?= $mp_icon ?> <?= htmlspecialchars($mp) ?>
+                </span>
+            </div>
         </div>
 
         <div class="grup-form" style="margin-top: 15px;">

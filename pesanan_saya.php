@@ -83,9 +83,26 @@ $hasil = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE user_id='$user_id' 
                 <?= date('d-m-Y H:i', strtotime($p['tanggal'])) ?>
             </div>
             <span class="<?= $status_class ?>"><?= $label_status ?></span>
-            <strong>Rp <?= number_format($p['total_harga'], 0, ',', '.') ?></strong>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 12px; color: #777; background: #f5f0ea; padding: 3px 10px; border-radius: 20px;">
+                    <?php
+                    $mp = $p['metode_pembayaran'] ?? 'Tunai';
+                    if ($mp === 'Tunai') echo '💵 ';
+                    elseif ($mp === 'Transfer Bank') echo '🏦 ';
+                    elseif ($mp === 'QRIS') echo '📱 ';
+                    elseif ($mp === 'Dompet Digital') echo '👛 ';
+                    echo htmlspecialchars($mp);
+                    ?>
+                </span>
+                <strong>Rp <?= number_format($p['total_harga'], 0, ',', '.') ?></strong>
+            </div>
         </summary>
         <div class="isi-detail">
+            <?php if (!empty($p['metode_pembayaran'])) : ?>
+                <p style="color:#555; font-size:13px; margin-bottom: 8px;">
+                    💳 <strong>Metode Pembayaran:</strong> <?= htmlspecialchars($p['metode_pembayaran']) ?>
+                </p>
+            <?php endif; ?>
             <?php if (!empty($p['catatan'])) : ?>
                 <p style="color:#666; font-style:italic;">Catatan: <?= htmlspecialchars($p['catatan']) ?></p>
             <?php endif; ?>

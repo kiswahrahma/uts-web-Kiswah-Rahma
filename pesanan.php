@@ -185,6 +185,7 @@ $pesan = $_GET["pesan"] ?? "";
                     <th>Tanggal & Waktu</th>
                     <th>Pelanggan</th>
                     <th>Status</th>
+                    <th>Metode Bayar</th>
                     <th>Total Harga</th>
                     <th>Catatan</th>
                     <th>Aksi</th>
@@ -212,6 +213,19 @@ $pesan = $_GET["pesan"] ?? "";
                             ?>
                         </span>
                     </td>
+                    <td>
+                        <?php
+                        $mp = $baris['metode_pembayaran'] ?? 'Tunai';
+                        $mp_icon = '';
+                        if ($mp === 'Tunai') $mp_icon = '💵';
+                        elseif ($mp === 'Transfer Bank') $mp_icon = '🏦';
+                        elseif ($mp === 'QRIS') $mp_icon = '📱';
+                        elseif ($mp === 'Dompet Digital') $mp_icon = '👛';
+                        ?>
+                        <span style="font-size:12px; background:#fdf3e3; color:#6f4e37; padding:3px 10px; border-radius:20px; font-weight:600;">
+                            <?= $mp_icon ?> <?= htmlspecialchars($mp) ?>
+                        </span>
+                    </td>
                     <td><strong>Rp <?= number_format($baris["total_harga"], 0, ',', '.') ?></strong></td>
                     <td><?= htmlspecialchars($baris["catatan"] ?? '-') ?></td>
                     <td class="kolom-aksi">
@@ -228,7 +242,7 @@ $pesan = $_GET["pesan"] ?? "";
 
                 <?php if (mysqli_num_rows($hasil) == 0) : ?>
                 <tr>
-                    <td colspan="8" style="text-align:center; color:#999; padding:30px;">
+                    <td colspan="9" style="text-align:center; color:#999; padding:30px;">
                         Belum ada data pesanan. <a href="tambah_pesanan.php">Tambah pesanan sekarang!</a>
                     </td>
                 </tr>

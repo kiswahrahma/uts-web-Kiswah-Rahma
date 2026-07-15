@@ -10,6 +10,9 @@ require_admin();
 
 $pesan = "";
 
+// Daftar metode pembayaran
+$metode_tersedia = ['Tunai', 'Transfer Bank', 'QRIS', 'Dompet Digital'];
+
 // Ambil data user untuk dropdown pelanggan
 $users_result = mysqli_query($koneksi, "SELECT id, nama, username FROM users ORDER BY nama");
 
@@ -17,10 +20,15 @@ $users_result = mysqli_query($koneksi, "SELECT id, nama, username FROM users ORD
 $menu_result = mysqli_query($koneksi, "SELECT id, nama_menu, kategori, harga FROM menu WHERE stok='Tersedia' ORDER BY kategori, nama_menu");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $pelanggan_id = $_POST["user_id"];
-    $status       = $_POST["status"];
-    $catatan      = trim($_POST["catatan"]);
-    $jumlah_order = $_POST["jumlah"] ?? []; // Array dengan key menu_id dan value quantity
+    $pelanggan_id      = $_POST["user_id"];
+    $status            = $_POST["status"];
+    $catatan           = trim($_POST["catatan"]);
+    $metode_pembayaran = trim($_POST["metode_pembayaran"] ?? 'Tunai');
+    $jumlah_order      = $_POST["jumlah"] ?? []; // Array dengan key menu_id dan value quantity
+
+    if (!in_array($metode_pembayaran, $metode_tersedia)) {
+        $metode_pembayaran = 'Tunai';
+    }
 
     // Validasi: Cek apakah ada menu yang dipesan (jumlah > 0)
     $ada_pesanan = false;
@@ -37,8 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pesan = "error|Silakan pilih minimal 1 menu dengan jumlah lebih dari 0!";
     } else {
         // 1. Insert ke tabel pesanan terlebih dahulu (dengan total_harga = 0 dulu)
-        $query_pesanan = "INSERT INTO pesanan (user_id, status, total_harga, catatan) 
-                          VALUES ('$pelanggan_id', '$status', 0, '$catatan')";
+        $metode_esc    = mysqli_real_escape_string($koneksi, $metode_pembayaran);
+        $query_pesanan = "INSERT INTO pesanan (user_id, status, total_harga, catatan, metode_pembayaran) 
+                          VALUES ('$pelanggan_id', '$status', 0, '$catatan', '$metode_esc')";
         
         if (mysqli_query($koneksi, $query_pesanan)) {
             $pesanan_id = mysqli_insert_id($koneksi);
@@ -153,6 +162,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <option value="Dibatalkan">❌ Dibatalkan</option>
                     </select>
                 </div>
+            </div>
+
+            <div class="grup-form">
+                <label>💳 Metode Pembayaran <span class="wajib">*</span></label>
+                <select name="metode_pembayaran" required>
+                    <?php foreach ($metode_tersedia as $metode) : ?>
+                        <option value="<?= $metode ?>" <?= ($metode === 'Tunai') ? 'selected' : '' ?>>
+                            <?php
+                            if ($metode === 'Tunai') echo '💵 ';
+                            elseif ($metode === 'Transfer Bank') echo '🏦 ';
+                            elseif ($metode === 'QRIS') echo '📱 ';
+                            elseif ($metode === 'Dompet Digital') echo '👛 ';
+                            echo $metode;
+                            ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <div class="grup-form">

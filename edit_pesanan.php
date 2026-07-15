@@ -23,6 +23,9 @@ if (mysqli_num_rows($result_pesanan) == 0) {
 $pesanan = mysqli_fetch_assoc($result_pesanan);
 $pesan_status = "";
 
+// Daftar metode pembayaran
+$metode_tersedia = ['Tunai', 'Transfer Bank', 'QRIS', 'Dompet Digital'];
+
 // 2. Ambil list user untuk dropdown
 $users_result = mysqli_query($koneksi, "SELECT id, nama, username FROM users ORDER BY nama");
 
@@ -34,15 +37,21 @@ $query_detail = "SELECT pesanan_detail.*, menu.nama_menu, menu.kategori
 $result_detail = mysqli_query($koneksi, $query_detail);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $pelanggan_id = $_POST["user_id"];
-    $status       = $_POST["status"];
-    $catatan      = trim($_POST["catatan"]);
+    $pelanggan_id      = $_POST["user_id"];
+    $status            = $_POST["status"];
+    $catatan           = trim($_POST["catatan"]);
+    $metode_pembayaran = trim($_POST["metode_pembayaran"] ?? 'Tunai');
+
+    if (!in_array($metode_pembayaran, $metode_tersedia)) {
+        $metode_pembayaran = 'Tunai';
+    }
 
     if (empty($pelanggan_id) || empty($status)) {
         $pesan_status = "error|Semua kolom wajib diisi!";
     } else {
+        $metode_esc = mysqli_real_escape_string($koneksi, $metode_pembayaran);
         $sql = "UPDATE pesanan 
-                SET user_id='$pelanggan_id', status='$status', catatan='$catatan' 
+                SET user_id='$pelanggan_id', status='$status', catatan='$catatan', metode_pembayaran='$metode_esc' 
                 WHERE id='$id'";
 
         if (mysqli_query($koneksi, $sql)) {
@@ -126,6 +135,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <option value="Diproses" <?= ($pesanan['status'] == 'Diproses') ? 'selected' : '' ?>>🔄 Diproses</option>
                         <option value="Selesai" <?= ($pesanan['status'] == 'Selesai') ? 'selected' : '' ?>>✅ Selesai</option>
                         <option value="Dibatalkan" <?= ($pesanan['status'] == 'Dibatalkan') ? 'selected' : '' ?>>❌ Dibatalkan</option>
+                    </select>
+                </div>
+
+                <div class="grup-form">
+                    <label>💳 Metode Pembayaran <span class="wajib">*</span></label>
+                    <select name="metode_pembayaran" required>
+                        <?php foreach ($metode_tersedia as $metode) : ?>
+                            <option value="<?= $metode ?>" <?= (($pesanan['metode_pembayaran'] ?? 'Tunai') == $metode) ? 'selected' : '' ?>>
+                                <?php
+                                if ($metode === 'Tunai') echo '💵 ';
+                                elseif ($metode === 'Transfer Bank') echo '🏦 ';
+                                elseif ($metode === 'QRIS') echo '📱 ';
+                                elseif ($metode === 'Dompet Digital') echo '👛 ';
+                                echo $metode;
+                                ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 

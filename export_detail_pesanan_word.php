@@ -153,6 +153,20 @@ header("Content-Disposition: attachment; filename=Detail_Pesanan_#" . $pesanan['
             <td><strong><?= $pesanan['status'] ?></strong></td>
         </tr>
         <tr>
+            <td class="label">Metode Pembayaran:</td>
+            <td>
+                <?php
+                $mp = $pesanan['metode_pembayaran'] ?? 'Tunai';
+                $mp_icon = '';
+                if ($mp === 'Tunai') $mp_icon = '💵';
+                elseif ($mp === 'Transfer Bank') $mp_icon = '🏦';
+                elseif ($mp === 'QRIS') $mp_icon = '📱';
+                elseif ($mp === 'Dompet Digital') $mp_icon = '👛';
+                ?>
+                <strong><?= $mp_icon ?> <?= htmlspecialchars($mp) ?></strong>
+            </td>
+        </tr>
+        <tr>
             <td class="label">Catatan:</td>
             <td><?= htmlspecialchars($pesanan['catatan'] ?: 'Tidak ada catatan.') ?></td>
         </tr>
