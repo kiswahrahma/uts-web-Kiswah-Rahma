@@ -243,7 +243,7 @@ $pesan = $_GET["pesan"] ?? "";
                 <?php if (mysqli_num_rows($hasil) == 0) : ?>
                 <tr>
                     <td colspan="9" style="text-align:center; color:#999; padding:30px;">
-                        Belum ada data pesanan. <a href="tambah_pesanan.php">Tambah pesanan sekarang!</a>
+                       Belum ada data pesanan. <a href="tambah_pesanan.php">Tambah pesanan sekarang!</a>
                     </td>
                 </tr>
                 <?php endif; ?>

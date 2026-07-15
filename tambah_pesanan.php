@@ -181,7 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="grup-form">
-                <label>Catatan Tambahan <small>(opsional)</small></label>
+             <label>Catatan Tambahan <small>(opsional)</small></label>
                 <textarea name="catatan" rows="2" placeholder="Contoh: Kopi kurangi gula, es batu dipisah..."></textarea>
             </div>
         </div>
