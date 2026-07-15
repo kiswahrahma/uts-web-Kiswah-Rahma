@@ -1,16 +1,8 @@
 <?php
 session_start();
 include "config.php";
-<<<<<<< HEAD
 include "auth.php";
 require_admin();
-=======
-
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
-    exit();
-}
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
 
 // Ambil data untuk statistik dashboard
 $total_menu = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM menu"))['total'];
@@ -101,22 +93,14 @@ $ambil_menu = mysqli_query($koneksi, "SELECT * FROM menu ORDER BY id DESC LIMIT 
     <ul class="nav-menu">
         <li><a href="dashboard.php" class="aktif">🏠 Dashboard</a></li>
         <li><a href="menu.php">🍽️ Daftar Menu</a></li>
-        <li><a href="pesanan.php">📋 Kelola Pesanan</a></li>
-<<<<<<< HEAD
         <li><a href="index.php" target="_blank">🌐 Lihat Web</a></li>
-=======
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
 </nav>
 
 <div class="konten">
     <div class="sambutan">
-<<<<<<< HEAD
         <h2>Selamat Datang, <?= htmlspecialchars($_SESSION["user_nama"] ?? $_SESSION["username"] ?? "Admin"); ?>! 👋</h2>
-=======
-        <h2>Selamat Datang, <?= htmlspecialchars($_SESSION["nama_lengkap"] ?? $_SESSION["username"] ?? "Admin"); ?>! 👋</h2>
->>>>>>> a5ebe0b1735c3f14f69185f4b1a313b582a1a213
         <p>Berikut adalah ringkasan data operasional Noir Cafe hari ini.</p>
     </div>
 
