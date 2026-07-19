@@ -10,6 +10,10 @@ if (isset($_SESSION["user_id"])) {
 }
 
 $pesan = "";
+if (!empty($_SESSION["register_sukses"])) {
+    $pesan = "sukses|Akun berhasil dibuat dan diverifikasi! Silakan login.";
+    unset($_SESSION["register_sukses"]);
+}
 $redirect = $_GET["redirect"] ?? ($_POST["redirect"] ?? "");
 
 // Cek apakah form login sudah dikirim
@@ -72,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Noir Cafe</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/dark-mode.js" defer></script>
 </head>
 <body class="halaman-auth">
 
