@@ -70,6 +70,21 @@ function sendOTP($email, $otp, $purpose = 'login') {
                     <p style='font-size: 12px; color: #999; text-align: center;'>Email ini dikirim otomatis oleh Noir Cafe App.</p>
                 </div>
             ";
+        } elseif ($purpose === 'register') {
+            $mail->Subject = 'Verifikasi Akun Baru - Noir Cafe';
+            $mail->Body    = "
+                <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px;'>
+                    <h2 style='color: #4A3E3D; text-align: center;'>☕ Selamat Datang di Noir Cafe</h2>
+                    <p>Halo,</p>
+                    <p>Terima kasih sudah mendaftar! Gunakan kode OTP di bawah ini untuk memverifikasi email dan mengaktifkan akun Anda:</p>
+                    <div style='background-color: #f7f7f7; padding: 15px; border-radius: 6px; text-align: center; margin: 20px 0;'>
+                        <span style='font-size: 28px; font-weight: bold; letter-spacing: 5px; color: #b8860b;'>$otp</span>
+                    </div>
+                    <p style='color: #666; font-size: 14px;'>Kode OTP ini berlaku selama 5 menit. Jangan berikan kode ini kepada siapapun.</p>
+                    <hr style='border: 0; border-top: 1px solid #eee; margin: 20px 0;'>
+                    <p style='font-size: 12px; color: #999; text-align: center;'>Email ini dikirim otomatis oleh Noir Cafe App.</p>
+                </div>
+            ";
         } else {
             $mail->Subject = 'Login OTP Verification - Noir Cafe';
             $mail->Body    = "
