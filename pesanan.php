@@ -44,6 +44,7 @@ $pesan = $_GET["pesan"] ?? "";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Pesanan - Noir Cafe</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/dark-mode.js" defer></script>
     <style>
         .badge-pending {
             background: #fff3e0; color: #e65100;
