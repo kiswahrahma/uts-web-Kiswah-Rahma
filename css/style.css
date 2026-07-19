@@ -1,18 +1,21 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Ukuran elemen lebih mudah diprediksi */
+  box-sizing: border-box;
+  /* Ukuran elemen lebih mudah diprediksi */
 }
 
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f5f0eb; /* Warna krem lembut */
+  background-color: #f5f0eb;
+  /* Warna krem lembut */
   color: #333;
   line-height: 1.6;
 }
 
 a {
-  text-decoration: none; /* Hilangkan garis bawah link */
+  text-decoration: none;
+  /* Hilangkan garis bawah link */
   color: inherit;
 }
 
@@ -22,15 +25,16 @@ a {
 
 /* Background halaman auth */
 .halaman-auth {
-  background: linear-gradient(
-    135deg,
-    #3b1b04,
-    #c8a97a
-  ); /* Gradient coklat kopi */
+  background: linear-gradient(135deg,
+      #3b1b04,
+      #c8a97a);
+  /* Gradient coklat kopi */
   min-height: 100vh;
   display: flex;
-  align-items: center; /* Tengah vertikal */
-  justify-content: center; /* Tengah horizontal */
+  align-items: center;
+  /* Tengah vertikal */
+  justify-content: center;
+  /* Tengah horizontal */
 }
 
 /* Kotak form login/register */
@@ -106,7 +110,8 @@ a {
   border: 2px solid #e0e0e0;
   border-radius: 8px;
   font-size: 14px;
-  transition: border-color 0.3s; /* Animasi halus saat focus */
+  transition: border-color 0.3s;
+  /* Animasi halus saat focus */
   font-family: inherit;
 }
 
@@ -115,14 +120,16 @@ a {
 .grup-form select:focus,
 .grup-form textarea:focus {
   outline: none;
-  border-color: #6f4e37; /* Garis jadi coklat */
+  border-color: #6f4e37;
+  /* Garis jadi coklat */
 }
 
 /* Tombol kirim form utama */
 .tombol-utama {
   width: 100%;
   padding: 13px;
-  background-color: #6f4e37; /* Coklat kopi */
+  background-color: #6f4e37;
+  /* Coklat kopi */
   color: white;
   border: none;
   border-radius: 8px;
@@ -135,7 +142,8 @@ a {
 }
 
 .tombol-utama:hover {
-  background-color: #5a3d2b; /* Lebih gelap saat hover */
+  background-color: #5a3d2b;
+  /* Lebih gelap saat hover */
 }
 
 /* Link di bawah form (sudah punya akun? dll) */
@@ -183,12 +191,14 @@ a {
    ============================================ */
 
 .navbar {
-  background: #6f4e37; /* Coklat kopi */
+  background: #6f4e37;
+  /* Coklat kopi */
   padding: 0 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky; /* Navbar tetap di atas saat scroll */
+  position: sticky;
+  /* Navbar tetap di atas saat scroll */
   top: 0;
   z-index: 100;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -247,6 +257,7 @@ a {
   border: 1px solid rgba(255, 255, 255, 0.6);
   transition: all 0.3s;
 }
+
 .nav-auth .tombol-nav-login:hover {
   background: rgba(255, 255, 255, 0.15);
 }
@@ -260,6 +271,7 @@ a {
   font-weight: 600;
   transition: all 0.3s;
 }
+
 .nav-auth .tombol-nav-daftar:hover {
   background: #f0e6da;
 }
@@ -271,10 +283,45 @@ a {
 }
 
 /* Badge status pesanan (dipakai di beberapa halaman) */
-.badge-pending { background: #fff3e0; color: #e65100; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
-.badge-diproses { background: #e3f2fd; color: #1565c0; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
-.badge-selesai { background: #e8f5e9; color: #2e7d32; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
-.badge-dibatalkan { background: #fdecea; color: #c62828; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
+.badge-pending {
+  background: #fff3e0;
+  color: #e65100;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.badge-diproses {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.badge-selesai {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.badge-dibatalkan {
+  background: #fdecea;
+  color: #c62828;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
 
 /* ============================================
    HALAMAN PUBLIK / PELANGGAN (index, menu, pesanan saya)
@@ -286,10 +333,12 @@ a {
   text-align: center;
   padding: 70px 20px;
 }
+
 .hero-beranda h1 {
   font-size: 34px;
   margin-bottom: 10px;
 }
+
 .hero-beranda p {
   font-size: 16px;
   color: rgba(255, 255, 255, 0.85);
@@ -342,26 +391,55 @@ a {
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 15px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
   transition: transform 0.2s, box-shadow 0.2s;
 }
+
 .kartu-menu-pelanggan:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);
 }
-.kartu-menu-pelanggan .menu-foto-wadah { margin-bottom: 12px; }
-.kartu-menu-pelanggan .harga-tag { font-weight: bold; color: #6f4e37; font-size: 16px; margin-bottom: 8px; }
-.kartu-menu-pelanggan .deskripsi-menu { color: #777; font-size: 13px; margin-bottom: 12px; flex-grow: 1; }
+
+.kartu-menu-pelanggan .menu-foto-wadah {
+  margin-bottom: 12px;
+}
+
+.kartu-menu-pelanggan .harga-tag {
+  font-weight: bold;
+  color: #6f4e37;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.kartu-menu-pelanggan .deskripsi-menu {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 12px;
+  flex-grow: 1;
+}
+
 .kartu-menu-pelanggan .tombol-pesan-kartu {
-  display: block; text-align: center; padding: 10px; border-radius: 8px;
-  background: #6f4e37; color: white; font-weight: 600; font-size: 14px;
+  display: block;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  background: #6f4e37;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
   transition: background 0.3s;
 }
-.kartu-menu-pelanggan .tombol-pesan-kartu:hover { background: #56392a; }
+
+.kartu-menu-pelanggan .tombol-pesan-kartu:hover {
+  background: #56392a;
+}
+
 .kartu-menu-pelanggan .tombol-pesan-kartu.habis {
-  background: #eee; color: #999; pointer-events: none;
+  background: #eee;
+  color: #999;
+  pointer-events: none;
 }
 
 .input-jumlah {
@@ -402,7 +480,8 @@ a {
 /* Grid 4 kolom untuk kartu */
 .grid-kartu {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 kolom sama rata */
+  grid-template-columns: repeat(4, 1fr);
+  /* 4 kolom sama rata */
   gap: 20px;
   margin-bottom: 25px;
 }
@@ -436,12 +515,15 @@ a {
 .kartu-biru {
   background: linear-gradient(135deg, #1565c0, #42a5f5);
 }
+
 .kartu-hijau {
   background: linear-gradient(135deg, #2e7d32, #66bb6a);
 }
+
 .kartu-kuning {
   background: linear-gradient(135deg, #e65100, #ffa726);
 }
+
 .kartu-merah {
   background: linear-gradient(135deg, #b71c1c, #ef5350);
 }
@@ -466,7 +548,8 @@ a {
 
 /* Form di dalam kotak */
 .kotak-form {
-  max-width: 600px; /* Form lebih sempit */
+  max-width: 600px;
+  /* Form lebih sempit */
 }
 
 /* ============================================
@@ -475,7 +558,8 @@ a {
 
 .tabel-data {
   width: 100%;
-  border-collapse: collapse; /* Hilangkan celah antar sel */
+  border-collapse: collapse;
+  /* Hilangkan celah antar sel */
   font-size: 14px;
 }
 
@@ -494,7 +578,8 @@ a {
 /* Sel data */
 .tabel-data td {
   padding: 12px 15px;
-  border-bottom: 1px solid #f0f0f0; /* Garis tipis antar baris */
+  border-bottom: 1px solid #f0f0f0;
+  /* Garis tipis antar baris */
 }
 
 /* Warna selang-seling baris untuk mudah dibaca */
@@ -503,7 +588,8 @@ a {
 }
 
 .tabel-data tbody tr:hover {
-  background: #f5ede6; /* Highlight saat hover */
+  background: #f5ede6;
+  /* Highlight saat hover */
 }
 
 /* ============================================
@@ -522,10 +608,12 @@ a {
   background: #e8f5e9;
   color: #2e7d32;
 }
+
 .badge-minuman {
   background: #e3f2fd;
   color: #1565c0;
 }
+
 .badge-snack {
   background: #fff3e0;
   color: #e65100;
@@ -546,6 +634,7 @@ a {
   transition: background 0.3s;
   display: inline-block;
 }
+
 .tombol-edit:hover {
   background: #0d47a1;
 }
@@ -561,6 +650,7 @@ a {
   transition: background 0.3s;
   display: inline-block;
 }
+
 .tombol-hapus:hover {
   background: #b71c1c;
 }
@@ -576,6 +666,7 @@ a {
   display: inline-block;
   transition: background 0.3s;
 }
+
 .tombol-kecil:hover {
   background: #e0e0e0;
 }
@@ -591,6 +682,7 @@ a {
   display: inline-block;
   transition: background 0.3s;
 }
+
 .tombol-batal:hover {
   background: #e0e0e0;
 }
@@ -615,7 +707,8 @@ a {
 
 .header-halaman {
   display: flex;
-  justify-content: space-between; /* Judul kiri, tombol kanan */
+  justify-content: space-between;
+  /* Judul kiri, tombol kanan */
   align-items: center;
   margin-bottom: 20px;
 }
@@ -661,7 +754,8 @@ a {
 
 /* Kolom aksi di tabel (tombol edit & hapus) */
 .kolom-aksi {
-  white-space: nowrap; /* Jangan wrap tombol ke baris bawah */
+  white-space: nowrap;
+  /* Jangan wrap tombol ke baris bawah */
   display: flex;
   gap: 6px;
 }
@@ -671,6 +765,7 @@ a {
    ============================================ */
 
 @media (max-width: 768px) {
+
   /* Navbar jadi vertikal */
   .navbar {
     flex-direction: column;
@@ -707,8 +802,126 @@ a {
 }
 
 @media (max-width: 480px) {
+
   /* Kartu jadi 1 kolom di HP kecil */
   .grid-kartu {
     grid-template-columns: 1fr;
   }
+}
+
+/* ============================================
+   DARK MODE
+   Diaktifkan lewat class "dark-mode" di <html>
+   (diatur otomatis oleh js/dark-mode.js)
+   ============================================ */
+
+html.dark-mode {
+  color-scheme: dark;
+}
+
+html.dark-mode body {
+  background-color: #16130f;
+  color: #e8e2d9;
+}
+
+/* Navbar tetap coklat tapi sedikit lebih gelap */
+html.dark-mode .navbar {
+  background: #3f2a1c;
+}
+
+/* Kontainer/kartu putih jadi abu-abu gelap */
+html.dark-mode .kotak,
+html.dark-mode .kotak-auth,
+html.dark-mode .kotak-form,
+html.dark-mode .kartu,
+html.dark-mode .kartu-menu-pelanggan,
+html.dark-mode .kartu-info,
+html.dark-mode .tabel-data,
+html.dark-mode .tabel-data tbody tr {
+  background-color: #211c17;
+  color: #e8e2d9;
+}
+
+html.dark-mode .tabel-data thead {
+  background: #3f2a1c;
+}
+
+html.dark-mode .tabel-data tbody tr:nth-child(even) {
+  background: #27221c;
+}
+
+html.dark-mode .tabel-data tbody tr:hover {
+  background: #33291f;
+}
+
+html.dark-mode .konten,
+html.dark-mode .hero-beranda,
+html.dark-mode .grid-kartu,
+html.dark-mode .grid-menu-dashboard {
+  background-color: transparent;
+}
+
+/* Judul & teks kecil biar tetap terbaca */
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode h4,
+html.dark-mode label {
+  color: #f2ede4;
+}
+
+html.dark-mode .judul-auth {
+  color: #d8b58a;
+}
+
+html.dark-mode .sub-auth,
+html.dark-mode .link-auth {
+  color: #b8afa2;
+}
+
+/* Input & form */
+html.dark-mode input,
+html.dark-mode select,
+html.dark-mode textarea {
+  background-color: #2a251e;
+  color: #e8e2d9;
+  border-color: #4a4234;
+}
+
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder {
+  color: #8a8175;
+}
+
+/* Tombol tetap dengan warna aksen, tidak perlu diubah drastis */
+
+/* Tombol toggle dark mode (floating) */
+#dark-mode-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #6f4e37;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, background 0.3s;
+}
+
+#dark-mode-toggle:hover {
+  transform: scale(1.08);
+  background: #56392a;
+}
+
+html.dark-mode #dark-mode-toggle {
+  background: #d8b58a;
+  color: #211c17;
 }
