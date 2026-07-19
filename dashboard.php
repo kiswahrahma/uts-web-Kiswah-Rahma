@@ -19,6 +19,7 @@ $ambil_menu = mysqli_query($koneksi, "SELECT * FROM menu ORDER BY id DESC LIMIT 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Noir Cafe</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/dark-mode.js" defer></script>
     <style>
         /* CSS Tambahan khusus untuk layout Grid Gambar Menu di Dashboard */
         .grid-menu-dashboard {
