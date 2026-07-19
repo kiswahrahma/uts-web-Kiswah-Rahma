@@ -1,6 +1,7 @@
 <?php
 session_start();       // Mulai session
 include "config.php"; // Sambungkan ke database
+include "mail_helper.php"; // Helper untuk mengirim email OTP
 
 // Jika sudah login, langsung ke halaman sesuai role
 if (isset($_SESSION["user_id"])) {
@@ -14,43 +15,52 @@ $redirect = $_GET["redirect"] ?? ($_POST["redirect"] ?? "");
 // Cek apakah form login sudah dikirim
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $username = trim($_POST["username"]);
+    $email = trim($_POST["email"]);
     $password = $_POST["password"];
 
     // === VALIDASI FORM ===
-    if (empty($username) || empty($password)) {
-        $pesan = "error|Username dan password wajib diisi!";
+    if (empty($email) || empty($password)) {
+        $pesan = "error|Email dan password wajib diisi!";
     } else {
-        // Cari user dengan username tersebut di database
-        $sql  = "SELECT * FROM users WHERE username='$username'";
+        // Cari user dengan email tersebut di database
+        $sql  = "SELECT * FROM users WHERE email='$email'";
         $hasil = mysqli_query($koneksi, $sql);
 
         if (mysqli_num_rows($hasil) == 1) {
-            // Username ditemukan, sekarang cek passwordnya
+            // User ditemukan, sekarang cek passwordnya
             $user = mysqli_fetch_assoc($hasil);
 
             if (password_verify($password, $user["password"])) {
-                // Password cocok! Simpan info user ke SESSION
-                $_SESSION["user_id"]   = $user["id"];
-                $_SESSION["user_nama"] = $user["nama"];
-                $_SESSION["username"]  = $user["username"];
-                $_SESSION["role"]      = $user["role"] ?? "pelanggan";
+                // Password cocok! Buat OTP code 6 digit
+                $otp = strval(rand(100000, 999999));
+                $expiry = date('Y-m-d H:i:s', time() + 300); // 5 menit dari sekarang
 
-                // Kalau ada halaman tujuan sebelumnya (misal mau pesan), balik ke situ.
-                // Kalau tidak, arahkan sesuai role: admin -> dashboard, pelanggan -> beranda.
-                if (!empty($redirect)) {
-                    header("Location: " . $redirect);
-                } elseif ($_SESSION["role"] === "admin") {
-                    header("Location: dashboard.php");
+                // Simpan OTP ke database
+                $user_id = $user["id"];
+                $update_otp = mysqli_query($koneksi, "UPDATE users SET otp_code='$otp', otp_expiry='$expiry' WHERE id='$user_id'");
+
+                if ($update_otp) {
+                    // Simpan info user sementara ke SESSION sebelum verifikasi OTP
+                    $_SESSION["pending_otp_user_id"] = $user_id;
+                    $_SESSION["pending_otp_redirect"] = $redirect;
+
+                    // Kirim email OTP
+                    $kirim = sendOTP($user["email"], $otp, 'login');
+
+                    if ($kirim['success']) {
+                        header("Location: verify_otp.php");
+                        exit();
+                    } else {
+                        $pesan = "error|" . $kirim['message'];
+                    }
                 } else {
-                    header("Location: index.php");
+                    $pesan = "error|Terjadi kesalahan database saat membuat OTP.";
                 }
-                exit();
             } else {
                 $pesan = "error|Password salah! Coba lagi.";
             }
         } else {
-            $pesan = "error|Username tidak ditemukan!";
+            $pesan = "error|Email tidak ditemukan!";
         }
     }
 }
@@ -84,8 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirect) ?>">
         <?php endif; ?>
         <div class="grup-form">
-            <label>Username</label>
-            <input type="text" name="username" placeholder="Masukkan username" required>
+            <label>Alamat Email</label>
+            <input type="email" name="email" placeholder="Masukkan alamat email" required>
         </div>
 
         <div class="grup-form">
