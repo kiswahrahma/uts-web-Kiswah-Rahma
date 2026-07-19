@@ -109,6 +109,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li><a href="pesanan.php">📋 Kelola Pesanan</a></li>
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
+    <div class="nav-auth">
+        <!-- Tombol dark mode disuntikkan di sini oleh dark-mode.js -->
+    </div>
 </nav>
 
 <div class="konten">

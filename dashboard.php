@@ -98,6 +98,9 @@ $ambil_menu = mysqli_query($koneksi, "SELECT * FROM menu ORDER BY id DESC LIMIT 
         <li><a href="index.php" target="_blank">🌐 Lihat Web</a></li>
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
+    <div class="nav-auth">
+        <!-- Tombol dark mode disuntikkan di sini oleh dark-mode.js -->
+    </div>
 </nav>
 
 <div class="konten">

@@ -893,35 +893,371 @@ html.dark-mode textarea::placeholder {
   color: #8a8175;
 }
 
-/* Tombol tetap dengan warna aksen, tidak perlu diubah drastis */
+/* ============================================
+   TOMBOL TOGGLE DARK MODE DI NAVBAR
+   ============================================ */
 
-/* Tombol toggle dark mode (floating) */
-#dark-mode-toggle {
-  position: fixed;
+/* Tombol toggle yang disuntikkan oleh dark-mode.js ke dalam .nav-auth */
+.nav-dark-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, transform 0.15s;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.nav-dark-toggle:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.7);
+  transform: scale(1.04);
+}
+
+.nav-dark-toggle:active {
+  transform: scale(0.97);
+}
+
+/* Label teks di samping ikon — sembunyikan di layar sangat kecil */
+.dark-toggle-label {
+  font-size: 12px;
+}
+
+@media (max-width: 480px) {
+  .dark-toggle-label {
+    display: none;
+  }
+}
+
+/* Saat dark mode aktif, warna tombol sedikit berbeda agar kontras */
+html.dark-mode .nav-dark-toggle {
+  background: rgba(216, 181, 138, 0.25);
+  border-color: rgba(216, 181, 138, 0.6);
+  color: #f2ede4;
+}
+
+html.dark-mode .nav-dark-toggle:hover {
+  background: rgba(216, 181, 138, 0.4);
+}
+
+/* Fallback floating — hanya muncul di halaman tanpa navbar (sudah diberi class extra oleh JS) */
+.dark-toggle-floating {
+  position: fixed !important;
   bottom: 20px;
   right: 20px;
   z-index: 9999;
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  border: none;
-  background: #6f4e37;
-  color: #fff;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  border: none !important;
+  background: #6f4e37 !important;
+  color: #fff !important;
   font-size: 20px;
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   transition: transform 0.2s, background 0.3s;
 }
 
-#dark-mode-toggle:hover {
-  transform: scale(1.08);
-  background: #56392a;
+.dark-toggle-floating:hover {
+  transform: scale(1.08) !important;
+  background: #56392a !important;
 }
 
-html.dark-mode #dark-mode-toggle {
+html.dark-mode .dark-toggle-floating {
+  background: #d8b58a !important;
+  color: #211c17 !important;
+}
+
+/* ============================================
+   DARK MODE
+   Diaktifkan lewat class "dark-mode" di <html>
+   (diatur otomatis oleh js/dark-mode.js)
+   ============================================ */
+
+html.dark-mode {
+  color-scheme: dark;
+}
+
+html.dark-mode body {
+  background-color: #16130f;
+  color: #e8e2d9;
+}
+
+/* ----- NAVBAR ----- */
+html.dark-mode .navbar {
+  background: #2e1f13;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+html.dark-mode .nav-menu a {
+  color: rgba(232, 226, 217, 0.75);
+}
+
+html.dark-mode .nav-menu a:hover,
+html.dark-mode .nav-menu a.aktif {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f2ede4;
+}
+
+html.dark-mode .nav-brand {
+  color: #d8b58a;
+}
+
+html.dark-mode .nav-sapaan {
+  color: #c8b49a;
+}
+
+html.dark-mode .nav-auth .tombol-nav-login {
+  color: #f2ede4;
+  border-color: rgba(232, 226, 217, 0.4);
+}
+
+html.dark-mode .nav-auth .tombol-nav-daftar {
   background: #d8b58a;
   color: #211c17;
 }
+
+html.dark-mode .nav-auth .tombol-nav-daftar:hover {
+  background: #c9a476;
+}
+
+/* ----- HERO ----- */
+html.dark-mode .hero-beranda {
+  background: linear-gradient(135deg, #0f0a06, #2e1f13 60%, #3f2a1c);
+}
+
+/* ----- KONTAINER / KARTU / KOTAK ----- */
+html.dark-mode .kotak,
+html.dark-mode .kotak-form {
+  background-color: #211c17;
+  color: #e8e2d9;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+html.dark-mode .kotak h3 {
+  color: #d8b58a;
+}
+
+html.dark-mode .kartu-menu-pelanggan {
+  background-color: #211c17;
+  color: #e8e2d9;
+  border-color: #3a3028;
+}
+
+html.dark-mode .kartu-menu-populer {
+  background-color: #211c17;
+  color: #e8e2d9;
+  border-color: #3a3028;
+}
+
+/* Menu foto wadah */
+html.dark-mode .menu-foto-wadah {
+  background-color: #2a241d;
+  border-color: #3a3028;
+}
+
+html.dark-mode .ikon-default {
+  color: #5a5148;
+}
+
+/* ----- AUTH PAGES ----- */
+html.dark-mode .halaman-auth {
+  background: linear-gradient(135deg, #0f0a06, #1e1208 50%, #2e1f13);
+}
+
+html.dark-mode .kotak-auth {
+  background-color: #211c17;
+  color: #e8e2d9;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+html.dark-mode .judul-auth {
+  color: #d8b58a;
+}
+
+html.dark-mode .sub-auth {
+  color: #a09080;
+}
+
+html.dark-mode .link-auth {
+  color: #a09080;
+}
+
+html.dark-mode .link-auth a {
+  color: #d8b58a;
+}
+
+/* ----- JUDUL & TEKS ----- */
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode h4 {
+  color: #f2ede4;
+}
+
+html.dark-mode .sambutan h2 {
+  color: #d8b58a;
+}
+
+html.dark-mode .sambutan p,
+html.dark-mode .kartu-menu-pelanggan .deskripsi-menu {
+  color: #a09080;
+}
+
+html.dark-mode .kartu-menu-pelanggan .harga-tag {
+  color: #d8b58a;
+}
+
+html.dark-mode .header-halaman h2 {
+  color: #d8b58a;
+}
+
+/* ----- FORM / INPUT ----- */
+html.dark-mode label {
+  color: #c8b49a;
+}
+
+html.dark-mode input,
+html.dark-mode select,
+html.dark-mode textarea {
+  background-color: #2a241d;
+  color: #e8e2d9;
+  border-color: #4a3f33;
+}
+
+html.dark-mode input:focus,
+html.dark-mode select:focus,
+html.dark-mode textarea:focus {
+  border-color: #d8b58a;
+}
+
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder {
+  color: #7a6e63;
+}
+
+/* ----- PESAN ERROR/SUKSES ----- */
+html.dark-mode .pesan.sukses {
+  background: #152d16;
+  color: #7ecb80;
+  border-left-color: #4caf50;
+}
+
+html.dark-mode .pesan.error {
+  background: #2d1515;
+  color: #ef9a9a;
+  border-left-color: #f44336;
+}
+
+/* ----- TABEL ----- */
+html.dark-mode .tabel-data {
+  background-color: transparent;
+}
+
+html.dark-mode .tabel-data thead {
+  background: #2e1f13;
+}
+
+html.dark-mode .tabel-data th {
+  color: #e8e2d9;
+}
+
+html.dark-mode .tabel-data td {
+  border-bottom-color: #3a3028;
+  color: #e8e2d9;
+}
+
+html.dark-mode .tabel-data tbody tr {
+  background-color: #211c17;
+}
+
+html.dark-mode .tabel-data tbody tr:nth-child(even) {
+  background: #261f19;
+}
+
+html.dark-mode .tabel-data tbody tr:hover {
+  background: #332820;
+}
+
+/* ----- FILTER KATEGORI ----- */
+html.dark-mode .tombol-filter {
+  background: #2a241d;
+  border-color: #4a3f33;
+  color: #c8b49a;
+}
+
+html.dark-mode .tombol-filter:hover {
+  border-color: #d8b58a;
+  color: #d8b58a;
+}
+
+html.dark-mode .tombol-filter.aktif {
+  background: #6f4e37;
+  border-color: #6f4e37;
+  color: #fff;
+}
+
+/* ----- BADGE ----- */
+html.dark-mode .badge-pending {
+  background: #2e1e0a;
+  color: #ffb74d;
+}
+
+html.dark-mode .badge-diproses {
+  background: #0a1e2e;
+  color: #64b5f6;
+}
+
+html.dark-mode .badge-selesai {
+  background: #0a2011;
+  color: #81c784;
+}
+
+html.dark-mode .badge-dibatalkan {
+  background: #2e0a0a;
+  color: #e57373;
+}
+
+html.dark-mode .badge-makanan {
+  background: #0a2011;
+  color: #81c784;
+}
+
+html.dark-mode .badge-minuman {
+  background: #0a1e2e;
+  color: #64b5f6;
+}
+
+html.dark-mode .badge-snack {
+  background: #2e1e0a;
+  color: #ffb74d;
+}
+
+/* ----- TOMBOL AKSI (edit, hapus, kecil, batal) ----- */
+html.dark-mode .tombol-kecil,
+html.dark-mode .tombol-batal {
+  background: #332820;
+  color: #c8b49a;
+}
+
+html.dark-mode .tombol-kecil:hover,
+html.dark-mode .tombol-batal:hover {
+  background: #3e3228;
+}
+
+/* ----- INFO DEMO ----- */
+html.dark-mode .info-demo {
+  background: #2a241d;
+  color: #a09080;
+}

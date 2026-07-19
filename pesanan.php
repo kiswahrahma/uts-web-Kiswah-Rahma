@@ -131,6 +131,9 @@ $pesan = $_GET["pesan"] ?? "";
         <li><a href="index.php" target="_blank">🌐 Lihat Web</a></li>
         <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
+    <div class="nav-auth">
+        <!-- Tombol dark mode disuntikkan di sini oleh dark-mode.js -->
+    </div>
 </nav>
 
 <div class="konten">
