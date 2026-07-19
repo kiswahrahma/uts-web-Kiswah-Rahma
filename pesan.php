@@ -84,6 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesan Menu - Noir Cafe</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/dark-mode.js" defer></script>
     <style>
         .metode-pembayaran-grid {
             display: grid;
