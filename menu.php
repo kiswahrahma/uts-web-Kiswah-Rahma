@@ -167,6 +167,17 @@ $pesan = $_GET["pesan"] ?? "";
             align-items: center !important; justify-content: center !important; width: 30px !important; height: 30px !important;
         }
         .modal-body { padding: 20px 24px 24px !important; max-height: 75vh !important; overflow-y: auto !important; text-align: left !important; }
+        
+        /* Dark mode overrides for modal inside menu.php */
+        html.dark-mode .modal-kotak {
+            background: #211c17 !important;
+            color: #e8e2d9 !important;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7) !important;
+        }
+        html.dark-mode .modal-overlay .modal-header {
+            background: #3f2a1c !important;
+            border-bottom: 1px solid #4a3f33 !important;
+        }
     </style>
 </head>
 <body>
