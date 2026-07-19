@@ -30,6 +30,7 @@ $hasil_menu = mysqli_query($koneksi, "SELECT * FROM menu $filter ORDER BY katego
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noir Cafe - Menu & Harga</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/dark-mode.js" defer></script>
 </head>
 <body>
 
