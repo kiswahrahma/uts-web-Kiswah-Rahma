@@ -105,6 +105,7 @@ $pesan = $_GET["pesan"] ?? "";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Menu - Noir Cafe</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/dark-mode.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .badge-tersedia {
