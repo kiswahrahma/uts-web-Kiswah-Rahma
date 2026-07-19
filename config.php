@@ -13,9 +13,9 @@ if (!$koneksi) {
 // === SMTP MAIL CONFIGURATION ===
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_PORT', 587);
-define('SMTP_USER', 'your_email@gmail.com');      // Ganti dengan email Gmail Anda
-define('SMTP_PASS', 'your_app_password');       // Ganti dengan App Password Gmail Anda
-define('SMTP_FROM_EMAIL', 'your_email@gmail.com'); // Ganti dengan email Gmail Anda
+define('SMTP_USER', 'wawiwa0311@gmail.com');      // Ganti dengan email Gmail Anda
+define('SMTP_PASS', 'wfmfntgjofzuatwl');       // Ganti dengan App Password Gmail Anda
+define('SMTP_FROM_EMAIL', 'wawiwa0311@gmail.com'); // Ganti dengan email Gmail Anda
 define('SMTP_FROM_NAME', 'Noir Cafe Admin');
-define('SMTP_DEBUG_MODE', true);                // Set ke true jika ingin testing tanpa SMTP (kode OTP akan dicetak langsung di halaman/log)
+define('SMTP_DEBUG_MODE', false);                // Set ke true jika ingin testing tanpa SMTP (kode OTP akan dicetak langsung di halaman/log)
 ?>
