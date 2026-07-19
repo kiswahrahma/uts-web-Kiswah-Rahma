@@ -51,10 +51,6 @@
             navAuth.insertBefore(tombol, navAuth.firstChild);
         } else if (navbar) {
             navbar.appendChild(tombol);
-        } else {
-            // Fallback: pojok kanan bawah (halaman tanpa navbar)
-            tombol.classList.add("dark-toggle-floating");
-            document.body.appendChild(tombol);
         }
     });
 })();

@@ -990,100 +990,95 @@ html.dark-mode {
 }
 
 html.dark-mode body {
-  background-color: #16130f;
+  background-color: #080706; /* Warna hitam pekat dengan nuansa kopi hangat */
   color: #e8e2d9;
 }
 
 /* ----- NAVBAR ----- */
 html.dark-mode .navbar {
-  background: #2e1f13;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  background: #5c3d2e; /* Coklat yang lebih terang / hangat */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
 }
 
 html.dark-mode .nav-menu a {
-  color: rgba(232, 226, 217, 0.75);
+  color: rgba(232, 226, 217, 0.8);
 }
 
 html.dark-mode .nav-menu a:hover,
 html.dark-mode .nav-menu a.aktif {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   color: #f2ede4;
 }
 
 html.dark-mode .nav-brand {
-  color: #d8b58a;
+  color: #f2ede4;
 }
 
 html.dark-mode .nav-sapaan {
-  color: #c8b49a;
+  color: #d8c4ad;
 }
 
 html.dark-mode .nav-auth .tombol-nav-login {
   color: #f2ede4;
-  border-color: rgba(232, 226, 217, 0.4);
+  border-color: rgba(232, 226, 217, 0.5);
 }
 
 html.dark-mode .nav-auth .tombol-nav-daftar {
-  background: #d8b58a;
+  background: #e5c299; /* Coklat/emas terang */
   color: #211c17;
 }
 
 html.dark-mode .nav-auth .tombol-nav-daftar:hover {
-  background: #c9a476;
+  background: #d8b58a;
 }
 
 /* ----- HERO ----- */
 html.dark-mode .hero-beranda {
-  background: linear-gradient(135deg, #0f0a06, #2e1f13 60%, #3f2a1c);
+  background: linear-gradient(135deg, #0a0908, #302018 60%, #4a3225);
 }
 
 /* ----- KONTAINER / KARTU / KOTAK ----- */
 html.dark-mode .kotak,
 html.dark-mode .kotak-form {
-  background-color: #211c17;
+  background-color: #121110; /* Menjadi hitam */
   color: #e8e2d9;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
 }
 
 html.dark-mode .kotak h3 {
-  color: #d8b58a;
+  color: #e5c299; /* Coklat terang untuk judul */
 }
 
-html.dark-mode .kartu-menu-pelanggan {
-  background-color: #211c17;
-  color: #e8e2d9;
-  border-color: #3a3028;
-}
-
+html.dark-mode .kartu-menu-pelanggan,
 html.dark-mode .kartu-menu-populer {
-  background-color: #211c17;
+  background-color: #121110; /* Menjadi hitam */
   color: #e8e2d9;
-  border-color: #3a3028;
+  border-color: #2b2520;
 }
 
 /* Menu foto wadah */
 html.dark-mode .menu-foto-wadah {
-  background-color: #2a241d;
-  border-color: #3a3028;
+  background-color: #1a1816;
+  border-color: #2b2520;
 }
 
 html.dark-mode .ikon-default {
-  color: #5a5148;
+  color: #4a423b;
 }
 
 /* ----- AUTH PAGES ----- */
 html.dark-mode .halaman-auth {
-  background: linear-gradient(135deg, #0f0a06, #1e1208 50%, #2e1f13);
+  background: linear-gradient(135deg, #050404, #120b05 50%, #1e140d);
 }
 
 html.dark-mode .kotak-auth {
-  background-color: #211c17;
+  background-color: #121110; /* Menjadi hitam */
   color: #e8e2d9;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
 }
 
 html.dark-mode .judul-auth {
-  color: #d8b58a;
+  color: #e5c299;
 }
 
 html.dark-mode .sub-auth {
@@ -1095,7 +1090,7 @@ html.dark-mode .link-auth {
 }
 
 html.dark-mode .link-auth a {
-  color: #d8b58a;
+  color: #e5c299;
 }
 
 /* ----- JUDUL & TEKS ----- */
@@ -1107,7 +1102,7 @@ html.dark-mode h4 {
 }
 
 html.dark-mode .sambutan h2 {
-  color: #d8b58a;
+  color: #e5c299;
 }
 
 html.dark-mode .sambutan p,
@@ -1116,11 +1111,11 @@ html.dark-mode .kartu-menu-pelanggan .deskripsi-menu {
 }
 
 html.dark-mode .kartu-menu-pelanggan .harga-tag {
-  color: #d8b58a;
+  color: #e5c299;
 }
 
 html.dark-mode .header-halaman h2 {
-  color: #d8b58a;
+  color: #e5c299;
 }
 
 /* ----- FORM / INPUT ----- */
@@ -1131,15 +1126,15 @@ html.dark-mode label {
 html.dark-mode input,
 html.dark-mode select,
 html.dark-mode textarea {
-  background-color: #2a241d;
+  background-color: #1b1917;
   color: #e8e2d9;
-  border-color: #4a3f33;
+  border-color: #38322c;
 }
 
 html.dark-mode input:focus,
 html.dark-mode select:focus,
 html.dark-mode textarea:focus {
-  border-color: #d8b58a;
+  border-color: #e5c299;
 }
 
 html.dark-mode input::placeholder,
@@ -1166,7 +1161,7 @@ html.dark-mode .tabel-data {
 }
 
 html.dark-mode .tabel-data thead {
-  background: #2e1f13;
+  background: #5c3d2e; /* Coklat yang lebih terang */
 }
 
 html.dark-mode .tabel-data th {
@@ -1174,38 +1169,46 @@ html.dark-mode .tabel-data th {
 }
 
 html.dark-mode .tabel-data td {
-  border-bottom-color: #3a3028;
+  border-bottom-color: #2b2520;
   color: #e8e2d9;
 }
 
 html.dark-mode .tabel-data tbody tr {
-  background-color: #211c17;
+  background-color: #121110;
 }
 
 html.dark-mode .tabel-data tbody tr:nth-child(even) {
-  background: #261f19;
+  background: #171514;
 }
 
 html.dark-mode .tabel-data tbody tr:hover {
-  background: #332820;
+  background: #23201e;
+}
+
+/* ----- TOMBOL UTAMA & FILTER COKLAT DI DARK MODE ----- */
+html.dark-mode .tombol-utama,
+html.dark-mode .tombol-filter.aktif,
+html.dark-mode .kartu-menu-pelanggan .tombol-pesan-kartu {
+  background-color: #8f6143; /* Coklat kopi yang lebih terang / hangat */
+  color: white;
+}
+
+html.dark-mode .tombol-utama:hover,
+html.dark-mode .tombol-filter.aktif:hover,
+html.dark-mode .kartu-menu-pelanggan .tombol-pesan-kartu:hover {
+  background-color: #a37252;
 }
 
 /* ----- FILTER KATEGORI ----- */
 html.dark-mode .tombol-filter {
-  background: #2a241d;
-  border-color: #4a3f33;
+  background: #1b1917;
+  border-color: #38322c;
   color: #c8b49a;
 }
 
 html.dark-mode .tombol-filter:hover {
-  border-color: #d8b58a;
-  color: #d8b58a;
-}
-
-html.dark-mode .tombol-filter.aktif {
-  background: #6f4e37;
-  border-color: #6f4e37;
-  color: #fff;
+  border-color: #e5c299;
+  color: #e5c299;
 }
 
 /* ----- BADGE ----- */
@@ -1247,17 +1250,17 @@ html.dark-mode .badge-snack {
 /* ----- TOMBOL AKSI (edit, hapus, kecil, batal) ----- */
 html.dark-mode .tombol-kecil,
 html.dark-mode .tombol-batal {
-  background: #332820;
+  background: #23201e;
   color: #c8b49a;
 }
 
 html.dark-mode .tombol-kecil:hover,
 html.dark-mode .tombol-batal:hover {
-  background: #3e3228;
+  background: #2d2926;
 }
 
 /* ----- INFO DEMO ----- */
 html.dark-mode .info-demo {
-  background: #2a241d;
+  background: #1b1917;
   color: #a09080;
-}
+}

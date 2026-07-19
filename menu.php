@@ -170,13 +170,13 @@ $pesan = $_GET["pesan"] ?? "";
         
         /* Dark mode overrides for modal inside menu.php */
         html.dark-mode .modal-kotak {
-            background: #211c17 !important;
+            background: #121110 !important;
             color: #e8e2d9 !important;
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7) !important;
         }
         html.dark-mode .modal-overlay .modal-header {
-            background: #3f2a1c !important;
-            border-bottom: 1px solid #4a3f33 !important;
+            background: #5c3d2e !important;
+            border-bottom: 1px solid #38322c !important;
         }
     </style>
 </head>
