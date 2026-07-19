@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="grup-form">
             <label>Alamat Email</label>
-            <input type="email" name="email" placeholder="Masukkan alamat email (untuk kode OTP)" required>
+            <input type="email" name="email" placeholder="Masukkan alamat email" required>
         </div>
 
         <div class="grup-form">
