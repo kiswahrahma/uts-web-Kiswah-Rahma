@@ -1,6 +1,7 @@
 <?php
 session_start();          
 include "config.php";    
+include "mail_helper.php"; // Helper untuk mengirim email OTP
 
 $pesan = "";  // Variabel untuk menyimpan pesan error/sukses
 
@@ -38,16 +39,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif (mysqli_num_rows($cek_email) > 0) {
             $pesan = "error|Email '$email' sudah terdaftar! Gunakan email lain.";
         } else {
-            // Enkripsi password agar tidak tersimpan polos di database
-            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+            // Belum langsung simpan ke database. Data disimpan sementara di SESSION,
+            // lalu kirim OTP ke email untuk verifikasi dulu sebelum akun benar-benar dibuat.
+            $otp = strval(rand(100000, 999999));
+            $expiry = time() + 300; // 5 menit
 
-            // Simpan user baru ke database (akun baru selalu jadi pelanggan)
-            $sql = "INSERT INTO users (nama, email, username, password, role) VALUES ('$nama', '$email', '$username', '$password_hash', 'pelanggan')";
+            $_SESSION["pending_register"] = [
+                "nama"     => $nama,
+                "email"    => $email,
+                "username" => $username,
+                "password" => password_hash($password, PASSWORD_DEFAULT),
+                "otp_code" => $otp,
+                "otp_expiry" => $expiry,
+            ];
 
-            if (mysqli_query($koneksi, $sql)) {
-                $pesan = "sukses|Akun berhasil dibuat! Silakan login.";
+            $kirim = sendOTP($email, $otp, 'register');
+
+            if ($kirim['success']) {
+                header("Location: verify_register.php");
+                exit();
             } else {
-                $pesan = "error|Terjadi kesalahan saat mendaftar. Coba lagi.";
+                $pesan = "error|" . $kirim['message'];
             }
         }
     }
@@ -60,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Cafe Kiswah</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/dark-mode.js" defer></script>
 </head>
 <body class="halaman-auth">
 
