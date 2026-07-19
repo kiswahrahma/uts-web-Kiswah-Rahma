@@ -21,6 +21,7 @@ $hasil = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE user_id='$user_id' 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesanan Saya - Noir Cafe</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/dark-mode.js" defer></script>
     <style>
         .kartu-pesanan {
             background: #fff; border: 1px solid #e0e0e0; border-radius: 12px;
