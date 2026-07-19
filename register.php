@@ -9,13 +9,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Ambil data dari form dan bersihkan dari karakter berbahaya
     $nama     = trim($_POST["nama"]);
+    $email    = trim($_POST["email"]);
     $username = trim($_POST["username"]);
     $password = $_POST["password"];
     $konfirm  = $_POST["konfirm_password"];
 
     // === VALIDASI FORM ===
-    if (empty($nama) || empty($username) || empty($password)) {
+    if (empty($nama) || empty($email) || empty($username) || empty($password)) {
         $pesan = "error|Semua kolom wajib diisi!";
+
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $pesan = "error|Format email tidak valid!";
 
     } elseif ($password !== $konfirm) {
         $pesan = "error|Password dan konfirmasi password tidak sama!";
@@ -25,16 +29,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
         // Cek apakah username sudah dipakai orang lain
-        $cek = mysqli_query($koneksi, "SELECT id FROM users WHERE username='$username'");
+        $cek_username = mysqli_query($koneksi, "SELECT id FROM users WHERE username='$username'");
+        // Cek apakah email sudah dipakai orang lain
+        $cek_email = mysqli_query($koneksi, "SELECT id FROM users WHERE email='$email'");
 
-        if (mysqli_num_rows($cek) > 0) {
+        if (mysqli_num_rows($cek_username) > 0) {
             $pesan = "error|Username '$username' sudah digunakan! Pilih username lain.";
+        } elseif (mysqli_num_rows($cek_email) > 0) {
+            $pesan = "error|Email '$email' sudah terdaftar! Gunakan email lain.";
         } else {
             // Enkripsi password agar tidak tersimpan polos di database
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
             // Simpan user baru ke database (akun baru selalu jadi pelanggan)
-            $sql = "INSERT INTO users (nama, username, password, role) VALUES ('$nama', '$username', '$password_hash', 'pelanggan')";
+            $sql = "INSERT INTO users (nama, email, username, password, role) VALUES ('$nama', '$email', '$username', '$password_hash', 'pelanggan')";
 
             if (mysqli_query($koneksi, $sql)) {
                 $pesan = "sukses|Akun berhasil dibuat! Silakan login.";
@@ -76,6 +84,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="grup-form">
             <label>Nama Lengkap</label>
             <input type="text" name="nama" placeholder="Masukkan nama lengkap" required>
+        </div>
+
+        <div class="grup-form">
+            <label>Alamat Email</label>
+            <input type="email" name="email" placeholder="Masukkan alamat email (untuk kode OTP)" required>
         </div>
 
         <div class="grup-form">
