@@ -27,6 +27,9 @@ $hasil = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE user_id='$user_id' 
             background: #fff; border: 1px solid #e0e0e0; border-radius: 12px;
             margin-bottom: 15px; overflow: hidden;
         }
+        html.dark-mode .kartu-pesanan {
+            color: #2a2a2a;
+        }
         .kartu-pesanan summary {
             list-style: none; cursor: pointer; padding: 16px 20px;
             display: flex; justify-content: space-between; align-items: center;
