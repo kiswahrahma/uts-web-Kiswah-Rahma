@@ -104,9 +104,22 @@ $hasil = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE user_id='$user_id' 
                     💳 <strong>Metode Pembayaran:</strong> <?= htmlspecialchars($p['metode_pembayaran']) ?>
                 </p>
             <?php endif; ?>
+
+            <?php if ($p['metode_pembayaran'] === 'QRIS' && $p['status'] === 'Pending') :
+                $isi_qr = "NOIR CAFE | Pesanan #{$p['id']} | Total: Rp " . number_format($p['total_harga'], 0, ',', '.');
+                $url_qr = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" . urlencode($isi_qr);
+            ?>
+                <div style="text-align:center; background:#fdfaf6; border:1px dashed #c9a97e; border-radius:12px; padding:16px; margin-bottom:12px;">
+                    <p style="font-weight:600; color:#6f4e37; margin-bottom:8px;">📱 Scan untuk Pembayaran QRIS</p>
+                    <img src="<?= $url_qr ?>" alt="QR Pembayaran" style="border-radius:8px;">
+                    <p style="font-size:12px; color:#888; margin-top:8px;">*Simulasi QRIS untuk keperluan demo</p>
+                </div>
+            <?php endif; ?>
+
             <?php if (!empty($p['catatan'])) : ?>
                 <p style="color:#666; font-style:italic;">Catatan: <?= htmlspecialchars($p['catatan']) ?></p>
             <?php endif; ?>
+
             <table class="tabel-data">
                 <thead>
                     <tr>

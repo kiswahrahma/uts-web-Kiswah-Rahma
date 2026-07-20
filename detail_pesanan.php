@@ -156,7 +156,7 @@ $result_detail = mysqli_query($koneksi, $query_detail);
 </nav>
 
 <div class="konten">
-    
+
     <!-- Header struk saat diprint -->
     <div class="struk-header" style="display: none; text-align: center; margin-bottom: 20px;">
         <h2>☕ Noir Cafe</h2>
@@ -188,7 +188,7 @@ $result_detail = mysqli_query($koneksi, $query_detail);
                 <strong>Pelanggan:</strong> <?= htmlspecialchars($pesanan['nama_user']) ?> (<?= htmlspecialchars($pesanan['username_user']) ?>)
             </div>
             <div class="meta-item">
-                <strong>Status:</strong> 
+                <strong>Status:</strong>
                 <?php
                 $status_class = "badge-" . strtolower($pesanan["status"]);
                 ?>
@@ -215,6 +215,15 @@ $result_detail = mysqli_query($koneksi, $query_detail);
                 <span style="background: #fdf3e3; color: #6f4e37; padding: 3px 12px; border-radius: 20px; font-weight: 600; font-size: 13px;">
                     <?= $mp_icon ?> <?= htmlspecialchars($mp) ?>
                 </span>
+
+                <?php if ($mp === 'QRIS') :
+                    $isi_qr = "NOIR CAFE | Pesanan #{$pesanan['id']} | Total: Rp " . number_format($pesanan['total_harga'], 0, ',', '.');
+                    $url_qr = "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" . urlencode($isi_qr);
+                ?>
+                    <div style="margin-top:10px;">
+                        <img src="<?= $url_qr ?>" alt="QR QRIS" style="border-radius:8px; border:1px solid #eee;">
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
 
