@@ -990,13 +990,15 @@ html.dark-mode {
 }
 
 html.dark-mode body {
-  background-color: #080706; /* Warna hitam pekat dengan nuansa kopi hangat */
+  background-color: #080706;
+  /* Warna hitam pekat dengan nuansa kopi hangat */
   color: #e8e2d9;
 }
 
 /* ----- NAVBAR ----- */
 html.dark-mode .navbar {
-  background: #5c3d2e; /* Coklat yang lebih terang / hangat */
+  background: #5c3d2e;
+  /* Coklat yang lebih terang / hangat */
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
 }
 
@@ -1024,7 +1026,8 @@ html.dark-mode .nav-auth .tombol-nav-login {
 }
 
 html.dark-mode .nav-auth .tombol-nav-daftar {
-  background: #e5c299; /* Coklat/emas terang */
+  background: #e5c299;
+  /* Coklat/emas terang */
   color: #211c17;
 }
 
@@ -1040,18 +1043,21 @@ html.dark-mode .hero-beranda {
 /* ----- KONTAINER / KARTU / KOTAK ----- */
 html.dark-mode .kotak,
 html.dark-mode .kotak-form {
-  background-color: #121110; /* Menjadi hitam */
+  background-color: #121110;
+  /* Menjadi hitam */
   color: #e8e2d9;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
 }
 
 html.dark-mode .kotak h3 {
-  color: #e5c299; /* Coklat terang untuk judul */
+  color: #e5c299;
+  /* Coklat terang untuk judul */
 }
 
 html.dark-mode .kartu-menu-pelanggan,
 html.dark-mode .kartu-menu-populer {
-  background-color: #121110; /* Menjadi hitam */
+  background-color: #121110;
+  /* Menjadi hitam */
   color: #e8e2d9;
   border-color: #2b2520;
 }
@@ -1072,7 +1078,8 @@ html.dark-mode .halaman-auth {
 }
 
 html.dark-mode .kotak-auth {
-  background-color: #121110; /* Menjadi hitam */
+  background-color: #121110;
+  /* Menjadi hitam */
   color: #e8e2d9;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
 }
@@ -1161,7 +1168,8 @@ html.dark-mode .tabel-data {
 }
 
 html.dark-mode .tabel-data thead {
-  background: #5c3d2e; /* Coklat yang lebih terang */
+  background: #5c3d2e;
+  /* Coklat yang lebih terang */
 }
 
 html.dark-mode .tabel-data th {
@@ -1189,7 +1197,8 @@ html.dark-mode .tabel-data tbody tr:hover {
 html.dark-mode .tombol-utama,
 html.dark-mode .tombol-filter.aktif,
 html.dark-mode .kartu-menu-pelanggan .tombol-pesan-kartu {
-  background-color: #8f6143; /* Coklat kopi yang lebih terang / hangat */
+  background-color: #8f6143;
+  /* Coklat kopi yang lebih terang / hangat */
   color: white;
 }
 
