@@ -35,31 +35,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = mysqli_fetch_assoc($hasil);
 
             if (password_verify($password, $user["password"])) {
-                // Password cocok! Buat OTP code 6 digit
-                $otp = strval(rand(100000, 999999));
-                $expiry = date('Y-m-d H:i:s', time() + 300); // 5 menit dari sekarang
+                // Password cocok! Langsung login tanpa OTP
+                $_SESSION["user_id"]   = $user["id"];
+                $_SESSION["user_nama"] = $user["nama"];
+                $_SESSION["username"]  = $user["username"];
+                $_SESSION["role"]      = $user["role"] ?? "pelanggan";
 
-                // Simpan OTP ke database
-                $user_id = $user["id"];
-                $update_otp = mysqli_query($koneksi, "UPDATE users SET otp_code='$otp', otp_expiry='$expiry' WHERE id='$user_id'");
-
-                if ($update_otp) {
-                    // Simpan info user sementara ke SESSION sebelum verifikasi OTP
-                    $_SESSION["pending_otp_user_id"] = $user_id;
-                    $_SESSION["pending_otp_redirect"] = $redirect;
-
-                    // Kirim email OTP
-                    $kirim = sendOTP($user["email"], $otp, 'login');
-
-                    if ($kirim['success']) {
-                        header("Location: verify_otp.php");
-                        exit();
-                    } else {
-                        $pesan = "error|" . $kirim['message'];
-                    }
+                // Arahkan ke halaman tujuan, atau dashboard (jika admin), atau index (jika pelanggan)
+                if (!empty($redirect)) {
+                    header("Location: " . $redirect);
+                } elseif ($_SESSION["role"] === "admin") {
+                    header("Location: dashboard.php");
                 } else {
-                    $pesan = "error|Terjadi kesalahan database saat membuat OTP.";
+                    header("Location: index.php");
                 }
+                exit();
             } else {
                 $pesan = "error|Password salah! Coba lagi.";
             }
