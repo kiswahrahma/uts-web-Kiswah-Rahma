@@ -18,4 +18,7 @@ define('SMTP_PASS', 'wfmfntgjofzuatwl');       // Ganti dengan App Password Gmai
 define('SMTP_FROM_EMAIL', 'wawiwa0311@gmail.com'); // Ganti dengan email Gmail Anda
 define('SMTP_FROM_NAME', 'Noir Cafe Admin');
 define('SMTP_DEBUG_MODE', false);                // Set ke true jika ingin testing tanpa SMTP (kode OTP akan dicetak langsung di halaman/log)
+
+// === GOOGLE SSO CONFIGURATION ===
+define('GOOGLE_CLIENT_ID', 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com');
 ?>
