@@ -16,7 +16,7 @@ $google_id = "";
 
 // Cek apakah ini simulasi login (untuk mempermudah testing lokal/offline)
 if (isset($_POST['simulated_sso']) && $_POST['simulated_sso'] == '1') {
-    // Validasi apakah mode debug aktif atau Google Client ID belum dikonfigurasi (untuk memudahkan testing lokal)
+    // Validasi apakah mode debug aktif atau Google Client ID belum dikonfigurasi
     if ((defined('SMTP_DEBUG_MODE') && SMTP_DEBUG_MODE) || GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com') {
         $email = trim($_POST['email'] ?? '');
         $nama = trim($_POST['nama'] ?? '');
@@ -46,10 +46,9 @@ if (isset($_POST['simulated_sso']) && $_POST['simulated_sso'] == '1') {
     $client_id = GOOGLE_CLIENT_ID;
     $verified_data = null;
     
-    // Alur A: Coba panggil Endpoint TokenInfo Google (Sangat Aman)
+    // Alur A: Coba panggil Endpoint TokenInfo Google
     $url = "https://oauth2.googleapis.com/tokeninfo?id_token=" . urlencode($id_token);
     
-    // Set timeout yang cukup cepat
     $ctx = stream_context_create([
         'http' => [
             'timeout' => 5 // 5 detik
@@ -64,7 +63,7 @@ if (isset($_POST['simulated_sso']) && $_POST['simulated_sso'] == '1') {
         }
     }
     
-    // Alur B: Fallback ke Dekode Lokal jika server offline atau tokeninfo diblokir (khusus Debug/Simulasi Mode)
+    // Alur B: Fallback ke Dekode Lokal
     if (!$verified_data && ((defined('SMTP_DEBUG_MODE') && SMTP_DEBUG_MODE) || GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com')) {
         $parts = explode('.', $id_token);
         if (count($parts) === 3) {
@@ -98,7 +97,7 @@ if (!empty($email)) {
         // --- CASE 1: User Sudah Terdaftar ---
         $user = mysqli_fetch_assoc($hasil);
         
-        // Update google_id jika sebelumnya kosong (menghubungkan akun biasa ke Google SSO)
+        // Update google_id jika sebelumnya kosong
         if (empty($user['google_id']) && !empty($google_id)) {
             $google_id_esc = mysqli_real_escape_string($koneksi, $google_id);
             mysqli_query($koneksi, "UPDATE users SET google_id = '$google_id_esc' WHERE id = '{$user['id']}'");
@@ -131,7 +130,6 @@ if (!empty($email)) {
         $username_candidate = $username_base;
         $counter = 1;
         
-        // Loop sampai mendapat username unik
         while (true) {
             $usr_esc = mysqli_real_escape_string($koneksi, $username_candidate);
             $cek_uname = mysqli_query($koneksi, "SELECT id FROM users WHERE username = '$usr_esc'");
@@ -150,7 +148,6 @@ if (!empty($email)) {
         $google_id_esc = mysqli_real_escape_string($koneksi, $google_id);
         $username_final = mysqli_real_escape_string($koneksi, $username_candidate);
         
-        // Generate password acak aman agar tidak bisa login lewat form biasa dengan password kosong
         $random_password = bin2hex(random_bytes(16));
         $password_hash = password_hash($random_password, PASSWORD_DEFAULT);
         
@@ -167,7 +164,6 @@ if (!empty($email)) {
             $_SESSION["username"]  = $username_final;
             $_SESSION["role"]      = "pelanggan";
             
-            // Redirect langsung ke beranda
             header("Location: index.php");
             exit();
         } else {

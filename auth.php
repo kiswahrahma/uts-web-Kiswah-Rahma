@@ -1,12 +1,9 @@
 <?php
 // ============================================
 // FILE: auth.php
-// Fungsi bantuan untuk cek login & role user.
-// Panggil session_start() dan include "config.php"
-// SEBELUM include file ini.
+// Fungsi Bantuan Autentikasi & Role Guard
 // ============================================
 
-// Wajib login (admin ATAU pelanggan), kalau belum -> lempar ke login
 function require_login() {
     if (!isset($_SESSION["user_id"])) {
         header("Location: login.php");
@@ -14,7 +11,6 @@ function require_login() {
     }
 }
 
-// Halaman khusus ADMIN. Pelanggan yang nyasar ke sini dilempar ke menu pelanggan.
 function require_admin() {
     require_login();
     if (($_SESSION["role"] ?? "") !== "admin") {
@@ -23,7 +19,6 @@ function require_admin() {
     }
 }
 
-// Halaman khusus PELANGGAN. Admin yang nyasar ke sini dilempar ke dashboard.
 function require_pelanggan() {
     require_login();
     $role = $_SESSION["role"] ?? "";

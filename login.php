@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pesan = "error|Email dan password wajib diisi!";
     } else {
         // Cari user dengan email tersebut di database
-        $sql  = "SELECT * FROM users WHERE email='$email'";
+        $sql   = "SELECT * FROM users WHERE email='$email'";
         $hasil = mysqli_query($koneksi, $sql);
 
         if (mysqli_num_rows($hasil) == 1) {
